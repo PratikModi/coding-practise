@@ -13,21 +13,22 @@ public class LinkedListSwapInKGroupProblem {
         LinkedListNode third = new LinkedListNode(3);
         LinkedListNode fourth = new LinkedListNode(4);
         LinkedListNode fifth = new LinkedListNode(5);
-        LinkedListNode sixth = new LinkedListNode(6);
+        //LinkedListNode sixth = new LinkedListNode(6);
         head.next=second;
         second.next=third;
         third.next=fourth;
         fourth.next=fifth;
-        fifth.next=sixth;
-        //System.out.println(head);
+        //fifth.next=sixth;
+        /*System.out.println(head);*/
         //System.out.println(reverseInKGroup(head,3));
         System.out.println(head);
-        System.out.println(reverseInKGroupUsingStack(head,3));
+        //System.out.println(reverseInKGroupUsingStack(head,3));
+        System.out.println(reverseInKGroupUsingReversePointer(head,3));
     }
 
     public static LinkedListNode reverseInKGroup(LinkedListNode head, int k){
         if(head==null)
-            return head;
+            return null;
         LinkedListNode root = new LinkedListNode(0);
         root.next = head;
         LinkedListNode next = head;
@@ -46,6 +47,33 @@ public class LinkedListSwapInKGroupProblem {
         }
         current.next = reverseInKGroup(next,k);
         return root.next;
+    }
+
+    public static LinkedListNode reverseInKGroupUsingReversePointer(LinkedListNode head, int K){
+        if(head==null || K==0)
+            return head;
+        LinkedListNode current = head;
+        LinkedListNode next=null;
+        LinkedListNode previous=null;
+        int count=K;
+        int currentCount=0;
+        LinkedListNode temp=head;
+        while(currentCount<K && temp!=null){
+            temp=temp.next;
+            currentCount++;
+        }
+        if(currentCount<K)
+            return head;
+        while(count-->0 && current!=null){
+            next = current.next;
+            current.next=previous;
+            previous=current;
+            current=next;
+        }
+        if(current!=null) {
+            head.next = reverseInKGroupUsingReversePointer(current, K);
+        }
+        return previous;
     }
 
     public static LinkedListNode reverseInKGroupUsingStack(LinkedListNode head, int k){

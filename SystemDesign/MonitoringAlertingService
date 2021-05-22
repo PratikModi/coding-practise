@@ -1,0 +1,34 @@
+Here are my thoughts on the design. Please feel free to provide suggestions.
+
+Functional Requirements
+
+Internal health check that checks the healthiness of a node itself (CPU usage, RAM usage etc.).
+External health checks that check the health of a service running on them (latency, error rate etc).
+All these stats should be visualizable on a graph in some UI at a service level
+Alert should be sent when some of these metrics cross a threshold
+Non functional requirements
+
+The processes that collect these signals on a node should be very lightweight and should not impact the performance of the service running on them in any way
+Estimates
+
+Internal health check processes run on a box independent of what service runs on them so the load they have on a node is pretty much constant for any service.
+The data that they send will be like a float value corresponding each signal (like CPU usage etc.). If we assume we are capturing 10 signals => 40 bytes
+Let’s say we have 1000 services with each having 100 nodes => Total data out from the nodes => 40 * 100 * 1000 bytes = 4 MB
+Let’s say we send these metrics every 5 min => Total data out per day = 288 MB ~ 300 MB
+Similar sort of numbers will be there for external health checks as well
+HLD
+
+For internal health checks, we will have a process running on each node that captures such signals and sends them via rsyslog to a message queue like Kafka for asynchronous processing because we don’t need to be too real time.
+Then we have a stream processing layer that is processing all this data and is publishing to a time series database. The rough schema for that will look like:
+App_id, node_id, {cpu_usage, memory_usage}, time
+The final storage layer (TSDB) will be NoSQL in nature as we don’t need to have any relational properties apart from perhaps replacing the app_id with the actual app name. This could be simply done later at the visualization layer as the id to name mapping table will be very small in size.
+The TSDB will be the final persistence layer. The stream processors will also simultaneously publish their output to a cache like Redis. The cache will keep most recent data say like upto 3 days.
+The visualization layer where we see different graphs for a service will query the cache and show the graphs in near real time.
+The external metrics system works in a similar way. Only thing it may differ is how we are sending out these metrics.
+We were using rsyslog for internal metrics. We could actually use that here also. All the external metrics for a service can be logged to a file in a structured manner. Then we could write a rsyslog file monitor that processes that log and sends the info to Kafka. However, this is something like a hack
+A better way is to publish JMX metrics specific to an application. This can be done via tools like resilience4j with ease if you are using a java based service. Then you can expose these JMX metrics to Kafka for processing.
+Building the alerting system
+
+The alerting system will keep its own meta like what is the alert created for an app and what is the threshold.
+When the stream processor is processing a metrics, it will query the alert service to see if a rule is breached and then call it again to register an alert.
+Once the alert service receives a call for an alert, it will enqueue messages into a message queue for each of the alert sending services like pagerDuty etc. which can read off this queue and send alerts.

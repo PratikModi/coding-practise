@@ -50,6 +50,7 @@ public class MinimumNumberPatternProblem {
         for(int i=0;i<=S.length();i++){
             stack.push(i+1);
             if(i==S.length() || S.charAt(i)=='I'){
+                System.out.println(stack);
                 while(!stack.isEmpty()) {
                     result += String.valueOf(stack.pop())+" ";
                 }

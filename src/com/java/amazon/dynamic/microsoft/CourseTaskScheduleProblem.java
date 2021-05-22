@@ -16,19 +16,20 @@ public class CourseTaskScheduleProblem {
     private static final int UNPROCESSED = 1;
     private static final int PROCESSING = 2;
     private static final int PROCESSED = 3;
-
+//5
+//[[1,4],[2,4],[3,1],[3,2]]
     public static void main(String[] args) {
         List<List<Integer>> dependencies = new ArrayList<>();
         List<Integer> D1 = new ArrayList<>();
-        D1.add(0);D1.add(1); dependencies.add(D1);
+        D1.add(1);D1.add(0); dependencies.add(D1);
         List<Integer> D2 = new ArrayList<>();
-        D2.add(1);D2.add(2); dependencies.add(D2);
+        D2.add(0);D2.add(1); dependencies.add(D2);
         List<Integer> D3 = new ArrayList<>();
-        D3.add(2);D3.add(3); dependencies.add(D3);
+        /*D3.add(3);D3.add(1); dependencies.add(D3);
         List<Integer> D4 = new ArrayList<>();
-        D4.add(3);D4.add(4); dependencies.add(D4);
-        List<Integer> D5 = new ArrayList<>();
-        D5.add(4);D5.add(0); dependencies.add(D5);
+        D4.add(3);D4.add(2); dependencies.add(D4);*/
+        /*List<Integer> D5 = new ArrayList<>();
+        D5.add(4);D5.add(0); dependencies.add(D5);*/
         System.out.println(canTakeAllCourses(dependencies,5));
     }
 
@@ -42,13 +43,14 @@ public class CourseTaskScheduleProblem {
             if(adjMatrix.containsKey(dependencies.get(i).get(0))){
                 adjMatrix.get(dependencies.get(i).get(0)).add(dependencies.get(i).get(1));
             }else{
-                adjMatrix.put(dependencies.get(i).get(0), Arrays.asList(dependencies.get(i).get(1)));
-                visited.put(dependencies.get(i).get(0),UNPROCESSED);
-                visited.put(dependencies.get(i).get(1),UNPROCESSED);
+                adjMatrix.putIfAbsent(dependencies.get(i).get(0),new ArrayList<>());
+                adjMatrix.get(dependencies.get(i).get(0)).add(dependencies.get(i).get(1));
             }
+            visited.put(dependencies.get(i).get(0),UNPROCESSED);
+            visited.put(dependencies.get(i).get(1),UNPROCESSED);
         }
-        //System.out.println(adjMatrix);
-        //System.out.println(visited);
+        System.out.println(adjMatrix);
+        System.out.println(visited);
         Set<Integer> entrySet = visited.keySet();
         Iterator<Integer> iterator = entrySet.iterator();
         while(iterator.hasNext()){

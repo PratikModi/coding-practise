@@ -1,5 +1,6 @@
 package com.java.amazon.dynamic.facebook;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -22,6 +23,7 @@ public class WordLadder {
         List<String> dictionary2 = Arrays.asList(new String[]{"dot", "dop", "dat", "cat"});
         System.out.println(findLadderLength(startWord,endWord,dictionary));
         System.out.println(findLadderLength2(startWord,endWord,dictionary2));
+        System.out.println(findLadderLength("a","c", Arrays.asList("a","b","c")));
     }
 
     public static List<String> findLadderLength(String startWord, String endWord, List<String> dictionary){
@@ -44,7 +46,7 @@ public class WordLadder {
                     char org_char = chars[j];
                     String validWord=null;
                     for(char c='a';c<='z';c++){
-                        if(chars[j]==c)continue;
+                        if(org_char==c)continue;
                         chars[j]=c;
                         String newWord = String.valueOf(chars);
                         if(words.contains(newWord)){

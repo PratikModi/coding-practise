@@ -4,6 +4,8 @@ package com.java.amazon.dynamic.google;
  * Created by Pratik1 on 23-06-2020.
  */
 
+import java.util.Arrays;
+
 /**
  * Given a value V, if we want to make change for V cents, and we have infinite supply of each of
  * C = { C1, C2, .. , Cm} valued coins, what is the minimum number of coins to make the change?
@@ -23,22 +25,25 @@ public class CoinChangeProblemV2 {
         System.out.println(findWays(coins,30));
         coins = new int[] {9,6,5,1};
         System.out.println(findWays(coins,11));
+        coins = new int[] {2};
+        System.out.println(findWays(coins,3));
     }
 
     public static int findWays(int[] coins, int value){
         if(coins==null || coins.length==0)
-            return 0;
+            return -1;
         int[] dp = new int[value+1];
         //if value is 0
         dp[0]=0;
         for(int i=1;i<=value;i++){
-            dp[i]=Integer.MAX_VALUE;
+            dp[i]=value+1;
             for(int j=0;j<coins.length;j++){
                 if(coins[j]<=i){
                     dp[i]=Math.min(dp[i],1+dp[i-coins[j]]);
                 }
             }
         }
-        return dp[value];
+        //System.out.println(Arrays.toString(dp));
+        return dp[value]>value?-1:dp[value];
     }
 }

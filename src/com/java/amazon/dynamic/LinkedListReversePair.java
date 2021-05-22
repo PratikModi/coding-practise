@@ -56,9 +56,9 @@ class LinkedListNode{
         LinkedListNode current = this;
         while(current!=null){
             builder.append(current.value+"->");
-//            randomBuilder.append(current.random.value+"->");
+            randomBuilder.append(current.random.value+"->");
             current=current.next;
         }
-        return "Next Pointers==>"+builder.toString().substring(0,builder.length()-2);//+"\nRandom Pointers==>"+randomBuilder.toString().substring(0,randomBuilder.length()-2);
+        return "Next Pointers==>"+builder.toString().substring(0,builder.length()-2)+"\nRandom Pointers==>"+randomBuilder.toString().substring(0,randomBuilder.length()-2);
     }
 }

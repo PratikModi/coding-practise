@@ -4,10 +4,29 @@ import java.util.Arrays;
 
 public class LISProblem {
     public static void main(String[] args) {
-        int[] A = {47, 76, 6, 99, 97, 48, 18, 97, 10, 15, 92, 101, 7, 42, 35, 15, 14, 18, 47, 95, 7, 87, 55, 2, 59, 91, 14, 38, 91, 20, 16, 88, 74, 50, 63, 24, 93, 97, 10, 75, 85, 87, 1, 1, 21, 77, 22, 88, 65, 89, 81, 6, 63, 8, 89, 45, 66, 57, 39, 42, 87, 31, 91, 4, 94, 80, 54, 80, 32, 10, 44, 21, 24, 69, 73, 50, 36, 15, 89, 11, 61};
+        int[] A = {10,9,2,5,3,4};
         System.out.println(findLCS(A));
+        System.out.println(findLIS(A));
+    }
+    //O(n^2)
+    public static int findLIS(int[] A){
+        int max=0;
+        int N = A.length;
+        int[] DP = new int[N];
+        Arrays.fill(DP,1);
+
+        for(int i=1;i<N;i++){
+            for(int j=0;j<i;j++){
+                if(A[i]>A[j] && DP[i]<DP[j]+1){
+                    DP[i]=DP[j]+1;
+                    max=Math.max(max,DP[i]);
+                }
+            }
+        }
+        return max;
     }
 
+    //O(nlogn)
     public static int findLCS(int[] A){
         if(A==null ||A.length==0)
             return 0;

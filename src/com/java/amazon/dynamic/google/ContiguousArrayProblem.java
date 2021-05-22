@@ -46,6 +46,7 @@ public class ContiguousArrayProblem {
             }else{
                 sumIndex.put(sum,i);
             }
+            System.out.println(sumIndex);
         }
         return result;
     }

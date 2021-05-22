@@ -19,6 +19,7 @@ public class CheckIfBSTProblem {
         root.left = new TreeNode("1");
         root.right = new TreeNode("3");
         System.out.println(isBST(root,Integer.MIN_VALUE,Integer.MAX_VALUE));
+
     }
 
 }

@@ -1,7 +1,5 @@
 package com.java.amazon.dynamic;
 
-import java.util.Arrays;
-
 /**
  * Created by Pratik1 on 08-03-2020.
  */

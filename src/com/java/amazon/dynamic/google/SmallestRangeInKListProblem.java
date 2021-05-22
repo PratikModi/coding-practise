@@ -108,6 +108,7 @@ public class SmallestRangeInKListProblem {
             PQ.add(new Pair(I,LST.iterator()));
         }
         result.add(1,MAX_VALUE);
+        System.out.println(PQ);
         while(!PQ.isEmpty()){
             System.out.println(PQ);
             Pair P = PQ.poll();

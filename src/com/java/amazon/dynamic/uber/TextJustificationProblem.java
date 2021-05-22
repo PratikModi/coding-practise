@@ -39,7 +39,7 @@ public class TextJustificationProblem {
     public static void main(String[] args) {
         String[] words = new String[] {"This", "is", "an", "example", "of", "text", "justification."};
         int maxLength=16;
-        var result = justifyText(words,16);
+        var result = justifyText(words,maxLength);
         result.stream().forEach(e-> System.out.println(e));
         //System.out.println(Stream.generate(() -> "str").limit(2).collect(Collectors.joining()));
     }

@@ -20,8 +20,9 @@ import java.util.List;
 
 public class PrimeNumberProblem {
     public static void main(String[] args) {
-        System.out.println(findPrimeNumbers(74));
+        System.out.println(findPrimeNumbers(3));
         System.out.println(findPrimePair(4));
+
     }
 
     public static List<Integer> findPrimeNumbers(int N){
@@ -43,6 +44,8 @@ public class PrimeNumberProblem {
                 result.add(i);
             }
         }
+
+
         return result;
     }
 

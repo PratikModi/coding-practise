@@ -34,6 +34,45 @@ import java.util.*;
  *
  * // getRandom should return 1 and 2 both equally likely.
  * collection.getRandom();
+ *
+ * APPROACH
+ * ========
+ * Requirements
+ * ===========
+ * Insert() --> O(1)
+ * remove()-->O(1)
+ * getRandom()-> O(1)
+ *
+ *
+ * List
+ * ====
+ * insert()-> O(1)
+ * remove()->O(N)
+ * getRandom() --> O(N)
+ *
+ * Map
+ * ====
+ * insert() --> O(1)
+ * remove()-->O(1)
+ * getRandom()-->O(N)
+ *
+ * Set
+ * ====
+ * insert() --> O(1)
+ * remove()-->O(1)
+ * getRandom()-->O(N)
+ *
+ *
+ * List + Map
+ * =======
+ * Map<Integer,Set<Integer>> ==> Map<Value,Set<Index>>
+ * List<Integer> ==> List<value>
+ *
+ * insert()-> O(1)
+ * remove()->O(1) == Map.get(value) ==> Set<Indexes> ==> take first Index
+ *                                                               Set.remove()--O(1) == List --> replace index with last last element and remove last index
+ *                                                               update index of last element in map// remove the old last index from map
+ *
  */
 public class RandomizedCollection {
     public static void main(String[] args) {

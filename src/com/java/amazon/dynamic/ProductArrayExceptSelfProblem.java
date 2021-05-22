@@ -21,6 +21,8 @@ public class ProductArrayExceptSelfProblem {
             outputArray[i]=A[i-1]*outputArray[i-1];
         }
 
+        System.out.println(Arrays.toString(outputArray));
+
         int R=1;
         for(int i=A.length-1;i>=0;i--){
             outputArray[i]*=R;

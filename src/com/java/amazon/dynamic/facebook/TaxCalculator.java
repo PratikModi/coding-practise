@@ -27,9 +27,32 @@ public class TaxCalculator {
         for (int i = 0; i < taxs.length; i ++) {
             if (i < taxs.length - 1 && money >= taxs[i + 1].base) {
                 pay += (taxs[i + 1].base - taxs[i].base) * taxs[i].rate;
+                //System.out.println("1..."+pay);
             }
             else {
                 pay += (money - taxs[i].base) * taxs[i].rate;
+                //System.out.println("2..."+pay);
+                break;
+            }
+        }
+        return pay;
+    }
+
+    public static double calculate(List<List<Double>> taxs, double money){
+        if(taxs==null || taxs.isEmpty())
+            return money;
+        Collections.sort(taxs,Comparator.comparingDouble(e->e.get(0)));
+        double pay=0;
+        int N = taxs.size();
+        for(int i=0;i<N;i++){
+            if(i<N-1 && money>=taxs.get(i+1).get(0)){
+                //System.out.println((taxs.get(i+1).get(0)+"-"+taxs.get(i).get(0))+"*"+taxs.get(i).get(1) +"=="+((taxs.get(i+1).get(0)-taxs.get(i).get(0))*taxs.get(i).get(1)));
+                pay+=(taxs.get(i+1).get(0)-taxs.get(i).get(0))*taxs.get(i).get(1);
+                //System.out.println("1.."+pay);
+            }else{
+                //System.out.println("+"+money+"-"+taxs.get(i).get(0)+"*"+taxs.get(i).get(1));
+                pay+=(money-taxs.get(i).get(0))*taxs.get(i).get(1);
+                //System.out.println("2..."+pay);
                 break;
             }
         }
@@ -49,23 +72,8 @@ public class TaxCalculator {
         taxes.add(Arrays.asList(8000d,0.2));
         taxes.add(Arrays.asList(6000d,0.3));
         taxes.add(Arrays.asList(0d,0.4));
-        System.out.println(calculate(taxes,12000));
+        System.out.println(calculate(taxes,1000));
     }
 
-    public static double calculate(List<List<Double>> taxs, double money){
-        if(taxs==null || taxs.isEmpty())
-            return money;
-        Collections.sort(taxs,Comparator.comparingDouble(e->e.get(0)));
-        double pay=0;
-        int N = taxs.size();
-        for(int i=0;i<N;i++){
-            if(i<N-1 && money>=taxs.get(i+1).get(0)){
-                pay+=(taxs.get(i+1).get(0)-taxs.get(i).get(0))*taxs.get(i).get(1);
-            }else{
-                pay+=(money-taxs.get(i).get(0))*taxs.get(i).get(1);
-                break;
-            }
-        }
-        return pay;
-    }
+
 }

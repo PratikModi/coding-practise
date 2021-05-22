@@ -9,7 +9,7 @@ public class RunningMedian {
 
     public static double findRunningMedian(int[] A){
         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a,b)->(-1)*(a-b));
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a,b)->b-a);
         int n=A.length;
         for(int i=0;i<n;i++){
             addNumber(A[i],minHeap,maxHeap);
@@ -37,17 +37,19 @@ public class RunningMedian {
     }
 
     private static double findMedian(PriorityQueue<Integer>minHeap, PriorityQueue<Integer> maxHeap){
+        System.out.println("MIN==>"+minHeap);
+        System.out.println("MAX==>"+maxHeap);
         if(minHeap.size()==maxHeap.size()){
             return (double)(minHeap.peek()+maxHeap.peek())/2;
         }else if(minHeap.size()>maxHeap.size()){
-            return (double)minHeap.peek()/2;
+            return (double)minHeap.peek();
         }else{
-            return (double)maxHeap.peek()/2;
+            return (double)maxHeap.peek();
         }
     }
 
     public static void main(String[] args) {
-        int[] A = {5,9,1,4,7,3,2};
+        int[] A = {1,2,3};
         findRunningMedian(A);
     }
 }

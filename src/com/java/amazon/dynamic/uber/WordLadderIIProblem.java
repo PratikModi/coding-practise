@@ -66,7 +66,7 @@ public class WordLadderIIProblem {
         while(!Q.isEmpty()){
             String temp = Q.poll();
             //int step=visited.get(temp)+1;
-       //     if(step>min)continue;
+            //     if(step>min)continue;
             for(int i=0;i<temp.length();i++){
                 StringBuilder sb = new StringBuilder(temp);
                 for(char x='a';x<='z';x++){
@@ -82,7 +82,7 @@ public class WordLadderIIProblem {
                         adj.putIfAbsent(temp,new ArrayList<String>());
                         adj.get(temp).add(new_word);
                         //if(new_word.equals(endWord))
-         //                   min=step;
+                        //                   min=step;
                     }
                 }
             }
@@ -110,8 +110,4 @@ public class WordLadderIIProblem {
         }
 
     }
-
-
-
-
 }

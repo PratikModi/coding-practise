@@ -27,7 +27,7 @@ package com.java.amazon.dynamic.google;
 public class MatrixCountAllPathProblem {
 
     public static void main(String[] args) {
-        System.out.println(countWays(3,3));
+        System.out.println(countWays(5,5));
     }
 
     public static int countWays(int rows, int cols){

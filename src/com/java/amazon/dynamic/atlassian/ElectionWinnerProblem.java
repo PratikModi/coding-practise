@@ -43,11 +43,9 @@ public class ElectionWinnerProblem {
             election.put(vote,election.get(vote)+1);
             int noOfVotes = election.get(vote);
             if(noOfVotes>=highestVotesSoFar){
-                if(noOfVotes == highestVotesSoFar && winner.compareTo(vote)>0)
-                    winner = vote;
-                else{
+                if((noOfVotes == highestVotesSoFar && winner.compareTo(vote)>0) || noOfVotes>highestVotesSoFar){
                     highestVotesSoFar=noOfVotes;
-                    winner=vote;
+                    winner = vote;
                 }
             }
         }

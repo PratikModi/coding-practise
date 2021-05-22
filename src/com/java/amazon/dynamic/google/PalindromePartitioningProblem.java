@@ -37,6 +37,7 @@ public class PalindromePartitioningProblem {
             return;
         }
         for(int i=index+1;i<=N;i++){
+            System.out.println(index+"--"+i);
             String str = S.substring(index,i);
             if(isPalindrome(str)){
                 partition.add(str);
