@@ -33,8 +33,9 @@ public class WordBreakProblem {
         String S = "applepenapple";
         List<String> wordsList = Arrays.asList("apple", "pen");
         System.out.println(wordBreak(S,wordsList));
+        System.out.println(wordBreakIterative(S,wordsList));
     }
-
+    //O(N^2)
     private static boolean wordBreak(String S, List<String> wordsList){
         if(S==null)
             return false;
@@ -52,6 +53,24 @@ public class WordBreakProblem {
             }
         }
         return DP[N];
+    }
+    //O(2^N)
+    private static boolean wordBreakIterative(String S, List<String> wordsList){
+        if(S==null)
+            return false;
+        int N = S.length();
+        Set<String> words = new HashSet<>(wordsList);
+        String first;
+        String second;
+        for(int i=1;i<N;i++){
+            first = S.substring(0,i);
+            if(words.contains(first)){
+                second = S.substring(i);
+                if(second==null || second.isEmpty() || words.contains(second) || wordBreakIterative(second,wordsList))
+                    return true;
+            }
+        }
+        return false;
     }
 
 }

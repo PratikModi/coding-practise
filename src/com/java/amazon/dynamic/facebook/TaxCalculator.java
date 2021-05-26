@@ -46,13 +46,13 @@ public class TaxCalculator {
         int N = taxs.size();
         for(int i=0;i<N;i++){
             if(i<N-1 && money>=taxs.get(i+1).get(0)){
-                //System.out.println((taxs.get(i+1).get(0)+"-"+taxs.get(i).get(0))+"*"+taxs.get(i).get(1) +"=="+((taxs.get(i+1).get(0)-taxs.get(i).get(0))*taxs.get(i).get(1)));
+                System.out.println((taxs.get(i+1).get(0)+"-"+taxs.get(i).get(0))+"*"+taxs.get(i).get(1) +"=="+((taxs.get(i+1).get(0)-taxs.get(i).get(0))*taxs.get(i).get(1)));
                 pay+=(taxs.get(i+1).get(0)-taxs.get(i).get(0))*taxs.get(i).get(1);
-                //System.out.println("1.."+pay);
+                System.out.println("1.."+pay);
             }else{
-                //System.out.println("+"+money+"-"+taxs.get(i).get(0)+"*"+taxs.get(i).get(1));
+                System.out.println("+"+money+"-"+taxs.get(i).get(0)+"*"+taxs.get(i).get(1));
                 pay+=(money-taxs.get(i).get(0))*taxs.get(i).get(1);
-                //System.out.println("2..."+pay);
+                System.out.println("2..."+pay);
                 break;
             }
         }

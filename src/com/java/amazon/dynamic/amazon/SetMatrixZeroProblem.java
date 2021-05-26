@@ -21,6 +21,8 @@ import java.util.Arrays;
 public class SetMatrixZeroProblem {
     public static void main(String[] args) {
         int[][] matrix= {{1,1,1},{1,0,1},{1,1,1}};
+        Arrays.stream(matrix).forEach(e-> System.out.println(Arrays.toString(e)));
+        System.out.println("==============================================");
         setMatrixToZero(matrix);
         Arrays.stream(matrix).forEach(e-> System.out.println(Arrays.toString(e)));
     }
@@ -42,6 +44,8 @@ public class SetMatrixZeroProblem {
                 }
             }
         }
+        Arrays.stream(matrix).forEach(e-> System.out.println(Arrays.toString(e)));
+        System.out.println("==============================================");
         for(int i=1;i<matrix.length;i++){
             for (int j=1;j<matrix[i].length;j++){
                 if(matrix[i][0]==0 || matrix[0][j]==0){

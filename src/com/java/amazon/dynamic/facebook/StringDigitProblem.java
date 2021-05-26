@@ -38,6 +38,8 @@ public class StringDigitProblem {
         System.out.println(result);
         result = isValidNumber("1e.1");
         System.out.println(result);
+        result = isValidNumber("1.1.1");
+        System.out.println(result);
     }
 
     public static boolean isValidNumber(String input){
@@ -50,11 +52,11 @@ public class StringDigitProblem {
         }
         if(input.length()==1 && !Character.isDigit(input.charAt(0)))
             return false;
+        boolean foundDotOrE=false;
         for(int i=1;i<input.length();i++){
             if(input.charAt(i)!='.' && !Character.isDigit(input.charAt(i)) &&
                     input.charAt(i)!='+' && input.charAt(i)!='-')
                 return false;
-            boolean foundDotOrE=false;
             //Ensure that no ‘.’ comes after ‘e’.
             if(input.charAt(i)=='.'){
                 if(foundDotOrE)
