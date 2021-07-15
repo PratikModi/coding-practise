@@ -1,0 +1,9 @@
+Message Queue: -
+====================
+
+1. It should support multiple topics where messages can be published.
+2. Publisher should be able to publish the message in particular topic.
+3. Subscriber should be able to subscribe the topic.
+4. Whenever message is published to topic, all the Topic Subscribers should receive the message.
+5. Reset the message for subscriber. Replaying the message for subscriber.
+6. Subscribers should be able to run in Parallel.
