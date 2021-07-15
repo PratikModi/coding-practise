@@ -81,6 +81,15 @@ class TreeNode{
         return value == treeNode.value;
     }
 
+    public void print(TreeNode node){
+        if(node==null)
+            return;
+
+        System.out.print(node.value+",");
+        print(node.left);
+        print(node.right);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(value);

@@ -6,7 +6,7 @@ import java.util.Map;
 public class LongestStringNonRepeatingProblem {
 
     public static void main(String[] args) {
-        System.out.println(longestSubStringNonRepeating("GEEKSFORGEEKS"));
+        System.out.println(longestSubStringNonRepeating("ababcda"));
     }
 
     public static int longestSubStringNonRepeating(String S){

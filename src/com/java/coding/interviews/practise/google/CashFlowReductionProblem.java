@@ -3,6 +3,9 @@ package com.java.coding.interviews.practise.google;
 /**
  * Created by Pratik1 on 21-06-2020.
  */
+
+import java.util.Arrays;
+
 /**
  * Given a number of friends who have to give or take some amount of money from one another.
  * Design an algorithm by which the total cash flow among all the friends is minimized.
@@ -39,8 +42,10 @@ public class CashFlowReductionProblem {
         maxCredit=maximum(amount);
         maxDebit=minimum(amount);
 
-        if(maxCredit==maxDebit)
+        if(maxCredit==maxDebit) {
+            //System.out.println(Arrays.toString(amount));
             return result;
+        }
 
         int minimum = Math.min(-amount[maxDebit],amount[maxCredit]);
         amount[maxCredit]-=minimum;
@@ -59,6 +64,7 @@ public class CashFlowReductionProblem {
                 netAmount[P]+=cashFlow[C][P]-cashFlow[P][C];
             }
         }
+        System.out.println(Arrays.toString(netAmount));
         return findMinimumCashFlowRec(netAmount,0);
     }
 

@@ -36,6 +36,7 @@ public class PalindromePairProblem {
         for(int i=0;i<words.length;i++){
             reverseWordMap.put(new StringBuilder(words[i]).reverse().toString(),i);
         }
+        //System.out.println(reverseWordMap);
         for(int i=0;i<words.length;i++){
             String word = words[i];
             //Prefix Check

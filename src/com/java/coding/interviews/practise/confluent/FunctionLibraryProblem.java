@@ -108,6 +108,7 @@ class FunctionLibrary{
             SB.append(argumentTypes.get(i));
             SB.append("+");
         }
+        SB.setLength(SB.length()-1);
         return SB.toString();
     }
 }

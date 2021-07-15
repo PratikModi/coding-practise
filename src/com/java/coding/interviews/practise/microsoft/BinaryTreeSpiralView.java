@@ -64,4 +64,14 @@ class TreeNode{
         return "value=" + value ;
     }
 
+    public void print(TreeNode node){
+        if(node==null)
+            return;
+
+        System.out.print(node.value+",");
+        print(node.left);
+        print(node.right);
+    }
+
+
 }

@@ -27,6 +27,7 @@ public class PrintBTPathProblem {
         root.right=new TreeNode(3);
         root.left.right=new TreeNode(5);
         System.out.println(printBTPath(root));
+        root.print(root);
     }
 
     public static List<List<Integer>> printBTPath(TreeNode root){
@@ -66,5 +67,14 @@ class TreeNode{
         this.value = value;
         this.left=null;
         this.right=null;
+    }
+
+    public void print(TreeNode node){
+        if(node==null)
+            return;
+
+        System.out.print(node.value+",");
+        print(node.left);
+        print(node.right);
     }
 }

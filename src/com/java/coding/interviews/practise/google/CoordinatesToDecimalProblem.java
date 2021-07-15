@@ -19,7 +19,7 @@ import java.util.Arrays;
 public class CoordinatesToDecimalProblem {
     private static int BASE_VALUE=0;
     public static void main(String[] args) {
-        int[] C = {45,39};
+        int[] C = {10,20};
         int number = coordinatesToDecimal(C);
         System.out.println(number);
         C=decimalToCoordinates(number);

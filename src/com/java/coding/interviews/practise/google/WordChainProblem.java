@@ -1,8 +1,6 @@
 package com.java.coding.interviews.practise.google;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Given a list of words, each word consists of English lowercase letters.
@@ -42,6 +40,7 @@ public class WordChainProblem {
         Arrays.sort(words,(a,b)->a.length()-b.length());
         System.out.println(Arrays.toString(words));
         Map<String,Integer> M = new HashMap<>();
+        Set<String> finalR = new LinkedHashSet<>();
         for(String word : words){
             if(M.containsKey(word)) continue;
             M.putIfAbsent(word,1);
@@ -50,13 +49,19 @@ public class WordChainProblem {
                 SB.deleteCharAt(i);
                 String new_word=SB.toString();
                 //System.out.println(SB);
-                if(M.containsKey(new_word) && M.get(new_word)+1>M.get(word)){
-                    M.put(word,M.get(new_word)+1);
+                if(M.containsKey(new_word) && M.get(new_word)+1>M.get(word)) {
+                    M.put(word, M.get(new_word) + 1);
+                    /*if (!finalR.contains(new_word)){
+                        finalR.add(new_word);
+                        finalR.add(word);
+                    }*/
+                    System.out.println(M);
                 }
-                //System.out.println(M);
+
                 result=Math.max(result,M.get(word));
             }
         }
+        System.out.println(finalR);
         return result;
 
     }

@@ -32,11 +32,12 @@ public class RotateArrayProblem {
 
     public static void main(String[] args) {
         int[] A = {1,2,3,4,5};
+        System.out.println(Arrays.toString(A));
         int K=2;
         rotateArray(A,K);
         System.out.println(Arrays.toString(A));
         A =new int[] {1,2,3,4,5};
-        rotateArrayUsingReverse(A,K);
+        //rotateArrayUsingReverse(A,K);
         System.out.println(Arrays.toString(A));
     }
 
@@ -49,17 +50,22 @@ public class RotateArrayProblem {
         for(int start=0;count<N;start++){
             int current=start;
             int prev=A[current];
+            System.out.println("prev==>"+prev);
             do{
                 int next = (current+K)%N;
+                System.out.println("next==>"+next+"==>"+A[next]);
                 int temp = A[next];
                 A[next] = prev;
                 prev=temp;
                 current=next;
                 count++;
+                System.out.println(Arrays.toString(A));
             }while(start!=current);
         }
     }
-
+    //1,2,3,4,5,6,7,8
+    //8,7,6,5,4,3,2,1
+    //n-k+1 == 8-2 = 6
     public static void rotateArrayUsingReverse(int[] A , int K){
         if(A==null || A.length==0)
             return;

@@ -58,7 +58,7 @@ public class SpiralMatrixProblem {
                 }
             }
         }
-        System.out.println(spiralMatrix.toString());
+        System.out.println(spiralMatrix.toString().substring(0,spiralMatrix.length()-1));
     }
 
 }

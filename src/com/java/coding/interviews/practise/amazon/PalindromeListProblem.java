@@ -16,9 +16,11 @@ public class PalindromeListProblem {
     public static void main(String[] args) {
         ListNode N1 = new ListNode(1);
         ListNode N2 = new ListNode(2);
-        ListNode N3 = new ListNode(1);
+        ListNode N3 = new ListNode(2);
+        ListNode N4 = new ListNode(1);
         N1.next=N2;
         N2.next=N3;
+        N3.next=N4;
         System.out.println(isPalindrome(N1));
     }
 
@@ -35,7 +37,9 @@ public class PalindromeListProblem {
                 previous_to_slow=slow;
                 slow=slow.next;
             }
+            System.out.println(slow.value);
             if(fast!=null){
+                System.out.println("HERE");
                 midOne=slow;
                 slow=slow.next;
             }

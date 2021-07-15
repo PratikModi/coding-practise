@@ -1,9 +1,6 @@
 package com.java.coding.interviews.practise.google;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Given a collection of numbers that might contain duplicates, return all possible unique permutations.
@@ -25,8 +22,12 @@ public class  NumberPermutationsProblem {
         System.out.println(permutations2(L));
         L = Arrays.asList(new Integer[]{1,2,3});
         System.out.println(numberPermutations(L));
+        L = Arrays.asList(new Integer[]{1,2,3});
+        System.out.println(numberPermutations3(L));
         L = Arrays.asList(new Integer[]{1,2,2});
         System.out.println(numberPermutations(L));
+        L = Arrays.asList(new Integer[]{1,2,2});
+        System.out.println(numberPermutations3(L));
     }
 
 
@@ -83,6 +84,27 @@ public class  NumberPermutationsProblem {
                 swap(L, index, i);
             }
         }
+    }
+
+    public static List<List<Integer>> numberPermutations3(List<Integer> L){
+        List<List<Integer>> result = new ArrayList<>();
+        LinkedList<Integer> track = new LinkedList<>();
+        backtrack(L,result,track);
+        return result;
+    }
+
+    private static void backtrack(List<Integer> L, List<List<Integer>> result,LinkedList<Integer> track){
+        if(track.size() == L.size()){
+            result.add(new ArrayList<>(track));
+            return;
+        }
+        for(int i=0;i<L.size();i++){
+            if(track.contains(L.get(i)))continue;
+            track.add(L.get(i));
+            backtrack(L,result,track);
+            track.removeLast();
+        }
+
     }
 
 }

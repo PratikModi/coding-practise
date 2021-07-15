@@ -70,7 +70,7 @@ public class WordSearchIIBoggleProblem {
         root = root.children[c-'a'];
         if(root.word!=null){
             result.add(root.word);
-            root.word=null;
+           root.word=null;
         }
         board[i][j]='*';
         dfs(board,result,root,i-1,j);

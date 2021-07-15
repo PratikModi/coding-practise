@@ -27,7 +27,7 @@ import java.util.*;
  *
  * minByColumn(Table, ["x", "y", "z"]) -> return { x : 1, y : 2, z : 2}
  */
-public class TableRowColumnProblem {
+public class TableRowColumnProblem  {
 
     private static List<Row> table = new ArrayList<>();
 

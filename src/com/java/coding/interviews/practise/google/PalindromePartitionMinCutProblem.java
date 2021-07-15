@@ -33,7 +33,6 @@ public class PalindromePartitionMinCutProblem {
                 }
             }
         }
-        //System.out.println(Arrays.toString(cut));
         return cut[N-1];
     }
 }

@@ -70,6 +70,7 @@ public class MaximumStackProblem {
             stack.pop();
         }else{
             maxElement = 2*maxElement-stack.peek();
+            stack.pop();
         }
     }
 
