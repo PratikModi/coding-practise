@@ -1,6 +1,5 @@
 package com.java.coding.interviews.practise.hotstar;
 
-import java.lang.module.ResolutionException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
