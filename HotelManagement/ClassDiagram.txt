@@ -1,0 +1,11 @@
+Hotel and HotelLocation: Our system will support multiple locations of a hotel.
+Room: The basic building block of the system. Every room will be uniquely identified by the room number.
+      Each Room will have attributes like Room Style, Booking Price, etc.
+Account: We will have different types of accounts in the system: one will be a guest to search and book rooms,
+         another will be a receptionist. Housekeeping will keep track of the housekeeping records of a room, and a Server will handle room service.
+RoomBooking: This class will be responsible for managing bookings for a room.
+Notification: Will take care of sending notifications to guests.
+RoomHouseKeeping: To keep track of all housekeeping records for rooms.
+RoomCharge: Encapsulates the details about different types of room services that guests have requested.
+Invoice: Contains different invoice-items for every charge against the room.
+RoomKey: Each room can be assigned an electronic key card. Keys will have a barcode and will be uniquely identified by a key-ID.
