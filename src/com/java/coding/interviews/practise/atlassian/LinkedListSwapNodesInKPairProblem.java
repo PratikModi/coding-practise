@@ -3,7 +3,7 @@ package com.java.coding.interviews.practise.atlassian;
 import java.util.Stack;
 
 /**
- * Given Linked List Swap the nodes in a Pair of K
+     * Given Linked List Swap the nodes in a Pair of K
  */
 
 public class LinkedListSwapNodesInKPairProblem {
