@@ -4,8 +4,6 @@ package com.java.coding.interviews.practise.google;
  * Created by Pratik1 on 23-06-2020.
  */
 
-import java.util.Arrays;
-
 /**
  * Given a value V, if we want to make change for V cents, and we have infinite supply of each of
  * C = { C1, C2, .. , Cm} valued coins, what is the minimum number of coins to make the change?

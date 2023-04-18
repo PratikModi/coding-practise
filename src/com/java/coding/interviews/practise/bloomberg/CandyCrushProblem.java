@@ -43,12 +43,10 @@ import java.util.Stack;
 public class CandyCrushProblem {
 
     public static void main(String[] args) {
-
         System.out.println(crushCandies("aaabbbc"));
         System.out.println(crushCandies("aabbbacd"));
         System.out.println(crushCandies("aabbccddeeedcba"));
         System.out.println(crushCandies("aaabbbacd"));
-
     }
 
     private static String crushCandies(String S){
