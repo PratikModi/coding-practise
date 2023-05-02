@@ -14,7 +14,7 @@ public class HeightOfTreeProblem {
         System.out.println(max);
         System.out.println(isBalanced(root));
     }
-
+    //Time Complexity: O(N)
     public static int height(BinaryTreeNode root){
         if(root==null)
             return 0;
