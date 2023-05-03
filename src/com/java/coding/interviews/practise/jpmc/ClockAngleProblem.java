@@ -29,7 +29,7 @@ public class ClockAngleProblem {
     }
 
     private static float findAngle(int H, int M){
-        if(H<0 || M<0 || H>12 || M>60)
+        if(H<0 || M<0 || H>12 || M>59)
             return -1;
         float hour = ((H%12)+((float)M/60))*30; //30 degree -- 360/12 = 30 .. hour hand moves 30 degree every hour
         float minute = (M*6); // 6 degree -- 360/60 --- minute hand moves 6 degree every minute
