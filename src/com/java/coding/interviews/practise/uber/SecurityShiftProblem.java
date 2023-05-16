@@ -1,6 +1,6 @@
 package com.java.coding.interviews.practise.uber;
 
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Consolidate Security Gaurd Shifts
@@ -26,10 +26,55 @@ import java.util.Objects;
 public class SecurityShiftProblem {
 
     public static void main(String[] args) {
-
+        Security S1 = new Security("S1",new Timing(1,10));
+        Security S2 = new Security("S2",new Timing(1,15));
+        Security S3 = new Security("S5",new Timing(1,13));
+        Security S4 = new Security("S3",new Timing(3,7));
+        Security S5 = new Security("S4",new Timing(12,15));
+        List<Security> securities = List.of(S1,S2,S3,S4,S5);
+        consolidateSecurities(securities);
     }
 
-//    public List
+    public static void consolidateSecurities(List<Security> securities){
+        Map<Timing,List<String>> availabilityMap = new LinkedHashMap<>();
+        for(Security security : securities){
+            for(int i=security.timing.start;i<security.timing.end;i++){
+                int start=i, end=i+1;
+                availabilityMap.putIfAbsent(new Timing(start,end),new ArrayList<>());
+                availabilityMap.get(new Timing(start,end)).add(security.name);
+            }
+        }
+        //System.out.println(availabilityMap);
+        Map<Timing,List<String>> consolidateSecurity = new LinkedHashMap<>();
+        Map.Entry<Timing,List<String>> previousEntry = null;
+        Map.Entry<Timing,List<String>> nextEntry = null;
+        for(Map.Entry<Timing,List<String>> entry : availabilityMap.entrySet()){
+          /*  System.out.println("Previous Entry");
+            System.out.println(previousEntry);
+            System.out.println("Entry");
+            System.out.println(entry);*/
+            if(previousEntry==null){
+                previousEntry=entry;
+                continue;
+            }
+            if(!previousEntry.getValue().equals(entry.getValue())){
+                consolidateSecurity.put(new Timing(previousEntry.getKey().start,entry.getKey().start),previousEntry.getValue());
+                previousEntry=entry;
+            }else{
+                if(nextEntry!=null){
+                    nextEntry.getKey().start=previousEntry.getKey().start;
+                    nextEntry.getKey().end = entry.getKey().end;
+                    nextEntry.setValue(entry.getValue());
+                }else{
+                    nextEntry=entry;
+                }
+            }
+        }
+        if(nextEntry!=null){
+            consolidateSecurity.put(new Timing(nextEntry.getKey().start,nextEntry.getKey().end),nextEntry.getValue());
+        }
+        System.out.println(consolidateSecurity);
+    }
 
 }
 
