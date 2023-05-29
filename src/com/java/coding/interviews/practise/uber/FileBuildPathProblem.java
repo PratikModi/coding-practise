@@ -40,22 +40,19 @@ public class FileBuildPathProblem {
     }
 
     public String buildPath(int folderId){
-        StringBuilder path = new StringBuilder();
+        StringBuilder path = new StringBuilder("/");
         Stack<String> stackPath = new Stack<>();
+        stackPath.push(folderMap.get(folderId));
         while(folderId==0 || parentMap.containsKey(folderId)){
-            stackPath.push(folderMap.get(folderId));
             if(parentMap.containsKey(folderId)) {
                 folderId = parentMap.get(folderId);
+                stackPath.push(folderMap.get(folderId));
             }else{
                 break;
             }
         }
-        if(stackPath.isEmpty()){
-            path.append(folderMap.get(folderId));
-        }else {
-            while(!stackPath.isEmpty()){
-                path.append(stackPath.pop()).append("/");
-            }
+        while(!stackPath.isEmpty()){
+            path.append(stackPath.pop()).append("/");
         }
         return path.toString();
     }
@@ -64,7 +61,7 @@ public class FileBuildPathProblem {
     public static void main(String[] args) {
         List<FileFolder> folders = new ArrayList<>();
         folders.add(new FileFolder(0, Arrays.asList(7, 3), "abc"));
-        folders.add(new FileFolder(0, new ArrayList<>(), "xyz"));
+        //folders.add(new FileFolder(0, new ArrayList<>(), "xyz"));
         folders.add(new FileFolder(3, new ArrayList<>(), "pqr"));
         folders.add(new FileFolder(8, new ArrayList<>(), "def"));
         folders.add(new FileFolder(7, Arrays.asList(9), "ijk"));

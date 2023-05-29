@@ -16,7 +16,7 @@ import java.util.*;
  * For example, you may serialize the following 3-ary tree
  */
 public class NArySerializeDeserializeTree {
-    private static final String DELIMETER = ",";
+    private static final String DELIMITER = ",";
     public static void main(String[] args) {
 
     }
@@ -33,9 +33,9 @@ public class NArySerializeDeserializeTree {
         if(root==null)
             return;
         sb.append(String.valueOf(root.value));
-        sb.append(DELIMETER);
+        sb.append(DELIMITER);
         sb.append(String.valueOf(root.children.size()));
-        sb.append(DELIMETER);
+        sb.append(DELIMITER);
         for(Node current:root.children){
             serializeUtil(current,sb);
         }
@@ -44,7 +44,7 @@ public class NArySerializeDeserializeTree {
     private static Node deserialize(String data){
         if(data==null || data.isEmpty())
             return null;
-        Queue<String> Q = new LinkedList<>(Arrays.asList(data.split(DELIMETER)));
+        Queue<String> Q = new LinkedList<>(Arrays.asList(data.split(DELIMITER)));
         return deserializeUtil(Q);
     }
 

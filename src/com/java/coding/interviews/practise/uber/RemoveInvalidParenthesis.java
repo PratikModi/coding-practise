@@ -27,6 +27,7 @@ public class RemoveInvalidParenthesis {
     public static void main(String[] args) {
         System.out.println(removeInvalidParenthesis("()())()"));
         System.out.println(removeInvalidParenthesis("()v)"));
+        System.out.println(removeInvalidParenthesis("))(("));
     }
 
     private static boolean isParenthesis(char c){
@@ -62,7 +63,7 @@ public class RemoveInvalidParenthesis {
             S=Q.remove();
             //System.out.println(level);
             if(isValidParenthesis(S)){
-                System.out.println(S+"\n"+level);
+                //System.out.println(S+"\n"+level);
                 result.add(S);
                 level=true;
             }
