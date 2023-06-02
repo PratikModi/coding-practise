@@ -46,6 +46,7 @@ public class NextSmallestPalindromeProblem {
     public static void main(String[] args) {
         System.out.println(findNextPalindrome("199"));
         System.out.println(findNextPalindrome("2456"));
+        System.out.println(findNextPalindrome("2432"));
         System.out.println(findNextPalindrome("1"));
         System.out.println(findNextPalindrome("12345"));
     }
