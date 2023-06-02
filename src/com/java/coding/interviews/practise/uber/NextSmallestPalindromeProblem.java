@@ -54,6 +54,24 @@ public class NextSmallestPalindromeProblem {
         return String.valueOf(Integer.parseInt(S)+1);
     }
 
+    private static String addOne_2(String S1,String S2){
+        StringBuilder SB = new StringBuilder();
+        int i = S1.length()-1;
+        int j = S2.length()-1;
+        int carry=0;
+        while(i>=0 || j>=0){
+            int sum = carry;
+            if(i>=0) sum+=(S1.charAt(i--)-'0');
+            if(j>=0) sum+=(S2.charAt(j--)-'0');
+
+            SB.append(sum%10);
+            carry=sum/10;
+        }
+
+        if(carry!=0) SB.append(carry);
+        return SB.reverse().toString();
+    }
+
     private static String reverse(String S){
         return new StringBuilder(S).reverse().toString();
     }
@@ -67,11 +85,11 @@ public class NextSmallestPalindromeProblem {
             return S;
         if(S.length()==1){
             if(S.equalsIgnoreCase("9")) return "11";
-            else return addOne(S);
+            else return addOne_2(S,"1");
         }
         String SS="";
         if(S.equalsIgnoreCase(reverse(S))){
-            SS=addOne(S);
+            SS=addOne_2(S,"1");
         }else{
             SS=S;
         }
@@ -84,7 +102,7 @@ public class NextSmallestPalindromeProblem {
             if(isGreater(reverse(left),right)){
                 return left + reverse(left);
             }else{
-                String newLeft = addOne(left);
+                String newLeft = addOne_2(left,"1");
                 return newLeft+reverse(newLeft);
             }
         }else{
@@ -98,7 +116,7 @@ public class NextSmallestPalindromeProblem {
                     char c = (char) (((SS.charAt(mid) - '0') + 1) + '0');
                     return left+c+reverse(left);
                 }else{
-                    String newLeft = addOne(left+SS.charAt(mid));
+                    String newLeft = addOne_2(left+SS.charAt(mid),"1");
                     left = newLeft.substring(0,mid);
                     return newLeft+reverse(left);
                 }
