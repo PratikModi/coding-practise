@@ -185,6 +185,7 @@ public class EvaluateStringProblem {
     // Driver method to test above methods
     public static void main(String[] args)
     {
+        System.out.println(EvaluateStringProblem.evaluate("1+1-(1+2)+2"));
         System.out.println(EvaluateStringProblem.evaluate("10 + 2 * 6"));
         System.out.println(EvaluateStringProblem.evaluateExpression("10 + 2 * 6"));
         System.out.println(EvaluateStringProblem.evaluate("100 * 2 + 12"));

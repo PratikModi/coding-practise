@@ -1,5 +1,7 @@
 package com.java.coding.interviews.practise.rippling;
 
+import com.java.coding.interviews.practise.compass.EvaluateStringProblem;
+
 import java.util.Map;
 import java.util.Stack;
 import java.util.TreeMap;
@@ -27,7 +29,7 @@ public class ExcelSpreadSheetProblem {
         Cell c1 = new Cell("A1",1,null,false);
         Cell c2 = new Cell("A2",2,null,false);
         Cell c3 = new Cell("A3",null,"A1+A2",true);
-        Cell c4 = new Cell("A4",null,"A1+A3",true);
+        Cell c4 = new Cell("A4",null,"=1+A1-A3+2",true);
         sheet.addCell(c1);
         sheet.addCell(c2);
         sheet.addCell(c3);
@@ -35,6 +37,7 @@ public class ExcelSpreadSheetProblem {
         StringBuilder SB = new StringBuilder();
         sheet.getNormalizedExpression("1+A1-A3+2",SB);
         System.out.println(SB);
+        System.out.println(sheet.getCell("A4"));
     }
 
 }
@@ -59,6 +62,7 @@ class SpreadSheet{
                 String expression = cell.getExpression().substring(1);
                 StringBuilder normalizedExpression = new StringBuilder();
                 getNormalizedExpression(expression, normalizedExpression);
+                return EvaluateStringProblem.evaluate(normalizedExpression.toString());
             } else{
                 return cell.getValue();
             }
@@ -107,7 +111,7 @@ class SpreadSheet{
         return ch=='+' || ch=='-' || ch=='/' || ch=='*';
     }
 
-    private double evaluateExpression(String expression){
+    private Integer evaluateExpression(String expression){
         char[] tokens = expression.toCharArray();
         Stack<Integer> intValue = new Stack<>();
         Stack<Character> operator = new Stack<>();
@@ -115,17 +119,28 @@ class SpreadSheet{
             if(Character.isDigit(tokens[i])){
                 StringBuilder SB = new StringBuilder();
                 SB.append(tokens[i]);
-                while((i+1)<expression.length() && Character.isDigit(expression.charAt(i+1))){
+                while((i+1)<expression.length() && Character.isDigit(tokens[i+1])){
                     SB.append(tokens[++i]);
                 }
                 intValue.push(Integer.valueOf(SB.toString()));
             }else if(tokens[i]=='('){
                 operator.push(tokens[i]);
             }else if(tokens[i]==')'){
-                //if()
+                while (operator.peek()!='('){
+                    intValue.push(applyOperation(operator.pop(), intValue.pop(),intValue.pop()));
+                }
+                operator.pop();
+            }else if(isSign(tokens[i])){
+                while(!operator.isEmpty() && hasPrecedence(tokens[i],operator.peek())){
+                    intValue.push(applyOperation(operator.pop(),intValue.pop(),intValue.pop()));
+                }
+                operator.push(tokens[i]);
             }
         }
-        return 0d;
+        while(!operator.isEmpty()){
+            intValue.push(applyOperation(operator.pop(),intValue.pop(),intValue.pop()));
+        }
+        return intValue.pop();
     }
 
     private static int applyOperation(char op,int b, int a){
