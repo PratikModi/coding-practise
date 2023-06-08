@@ -21,6 +21,21 @@ import java.util.TreeMap;
  */
 public class ExcelSpreadSheetProblem {
 
+    public static void main(String[] args) {
+        SpreadSheet sheet = new SpreadSheet("Test");
+        Cell c1 = new Cell("A1",1d,null,false);
+        Cell c2 = new Cell("A2",2d,null,false);
+        Cell c3 = new Cell("A3",null,"A1+A2",true);
+        Cell c4 = new Cell("A4",null,"A1+A3",true);
+        sheet.addCell(c1);
+        sheet.addCell(c2);
+        sheet.addCell(c3);
+        sheet.addCell(c4);
+        StringBuilder SB = new StringBuilder();
+        sheet.getNormalizedExpression("1+A1+A3",SB);
+        System.out.println(SB);
+    }
+
 }
 
 class SpreadSheet{
@@ -39,9 +54,49 @@ class SpreadSheet{
     public Double getCell(String name){
         Cell cell = cells.get(name);
         if(cell.isExpression()){
+            String expression = cell.getExpression().substring(1);
+            StringBuilder exp = new StringBuilder();
+            int prevSignIndex = 0;
+            for(int i=0;i<expression.length();i++){
+                if(isSign(expression.charAt(i))){
 
+                }
+            }
         }
         return 0d;
+    }
+
+    public void getNormalizedExpression(String expression, StringBuilder SB){
+        int previousIndex=0;
+        StringBuilder cellId = new StringBuilder();
+        for(int i=0;i<expression.length();i++){
+            String cell="";
+            if(isSign(expression.charAt(i))){
+                SB.append(expression.charAt(i));
+                cell = expression.substring(previousIndex, i);
+                previousIndex=i+1;
+
+            }
+            System.out.println(previousIndex+"--"+i);
+            if (!cells.containsKey(cell)) {
+                cellId.append(expression.charAt(i));
+            }
+            System.out.println("CELL ID:--"+cellId);
+            if(cells.containsKey(cellId.toString())) {
+                if (cells.get(cellId.toString()).isExpression()) {
+                    getNormalizedExpression(cells.get(cellId.toString()).getExpression(), SB);
+                } else {
+                    System.out.println("IN ELSE");
+                    SB.append(cells.get(cellId.toString()).getValue());
+                }
+                cellId = new StringBuilder();
+            }
+        }
+
+    }
+
+    private boolean isSign(char ch){
+        return ch=='+' || ch=='-' || ch=='/' || ch=='*';
     }
 
     private double evaluateExpression(String expression){
@@ -77,5 +132,15 @@ class Cell{
 
     public boolean isExpression() {
         return isExpression;
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "name='" + name + '\'' +
+                ", value=" + value +
+                ", expression='" + expression + '\'' +
+                ", isExpression=" + isExpression +
+                '}';
     }
 }
