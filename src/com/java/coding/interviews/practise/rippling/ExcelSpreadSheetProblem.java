@@ -62,7 +62,7 @@ class SpreadSheet{
                 String expression = cell.getExpression().substring(1);
                 StringBuilder normalizedExpression = new StringBuilder();
                 getNormalizedExpression(expression, normalizedExpression);
-                return EvaluateStringProblem.evaluate(normalizedExpression.toString());
+                return evaluateExpression(normalizedExpression.toString());
             } else{
                 return cell.getValue();
             }
