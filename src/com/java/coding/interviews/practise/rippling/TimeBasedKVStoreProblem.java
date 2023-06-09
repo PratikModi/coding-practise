@@ -1,5 +1,9 @@
 package com.java.coding.interviews.practise.rippling;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 /**
  * Design a time-based key-value data structure that can store multiple values for the same key at different time stamps and retrieve the key's value at a certain timestamp.
  *
@@ -28,5 +32,40 @@ package com.java.coding.interviews.practise.rippling;
  * timeMap.get("foo", 5);         // return "bar2"
  */
 public class TimeBasedKVStoreProblem {
+    private static Map<String, TreeMap<Integer,String>> map = new HashMap<>();
+    public static void main(String[] args) {
+        set("love","high",10);
+        set("love","low",20);
+        System.out.println(get("love",5));
+        System.out.println(get("love",10));
+        System.out.println(get("love",15));
+        System.out.println(get("love",20));
+        System.out.println(get("love",25));
+    }
+    public static void set(String key, String value, int timestamp) {
+        map.putIfAbsent(key,new TreeMap<Integer,String>());
+        map.get(key).put(timestamp,value);
+    }
+
+    public static String get(String key, int timestamp) {
+        String value = "";
+        TreeMap<Integer,String> keyMap = map.get(key);
+        if(keyMap==null){
+            return value;
+        }else if(!keyMap.containsKey(timestamp)){
+            if(keyMap.floorEntry(timestamp)!=null){
+                Integer ts = keyMap.floorEntry(timestamp).getKey();
+                value = keyMap.get(ts);
+            }else{
+                value="";
+            }
+        }else{
+            value = keyMap.get(timestamp);
+        }
+        return value;
+    }
+
+
+
 
 }
