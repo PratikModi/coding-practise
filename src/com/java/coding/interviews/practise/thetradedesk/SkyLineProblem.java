@@ -42,7 +42,7 @@ public class SkyLineProblem {
         System.out.println(skyLine);
     }
 
-
+    //Time Complexity:- O(n^2)
     public static List<List<Integer>> getSkyline(int[][] buildings) {
         List<List<Integer>> skyLine = new ArrayList<>();
         List<int[]> heights = new ArrayList<>();
