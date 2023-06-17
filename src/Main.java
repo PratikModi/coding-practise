@@ -23,8 +23,8 @@ public class Main {
 
         List<String> list = List.of("ABC","XYZ");
         var result = list.stream().filter(e->e.equals("ABC")).map(e->e.charAt(1)).collect(Collectors.toList());
-        System.out.println(result);
-
+        //System.out.println(result);
+        System.out.println(Math.min(2,3)&1);
 
 
     }
