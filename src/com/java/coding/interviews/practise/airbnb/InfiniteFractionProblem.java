@@ -1,6 +1,7 @@
 package com.java.coding.interviews.practise.airbnb;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * LeetCode – Fraction to Recurring Decimal (Java)
@@ -19,7 +20,46 @@ import java.util.HashMap;
 public class InfiniteFractionProblem {
 
     public static void main(String[] args) {
-        System.out.println(fractionToDecimal(229,990));
+        System.out.println(fractionToDecimal(-1,-2147483648));
+        System.out.println(fractionToDecimal_2(-1,-2147483648));
+    }
+
+
+    public static String fractionToDecimal_2(int numerator, int denominator) {
+
+        StringBuilder ans = new StringBuilder();
+        if(numerator==0)
+            return "0";
+        if ((numerator < 0) ^ (denominator < 0)) {
+            ans.append("-");
+        }
+
+        long num = numerator,den = denominator;
+        num = Math.abs(num);
+        den = Math.abs(den);
+        long q = num/den;
+        long r = num % den;
+        ans.append(q);
+        if(r==0)
+            return ans.toString();
+        ans.append(".");
+        //System.out.println(ans);
+        Map<Long,Integer> map = new HashMap();
+        while(r!=0){
+            //System.out.println(r);
+            if(map.containsKey(r)){
+                ans.insert(map.get(r),"(");
+                ans.append(")");
+                break;
+            }else{
+                map.put(r,ans.length());
+                r*=10;
+                q=r/den;
+                r=r%den;
+                ans.append(q);
+            }
+        }
+        return ans.toString();
     }
 
     public static String fractionToDecimal(int numerator, int denominator) {
@@ -52,7 +92,7 @@ public class InfiniteFractionProblem {
         // right-hand side of decimal point
         HashMap<Long, Integer> map = new HashMap<Long, Integer>();
         result += ".";
-        System.out.println("REMINDER-->"+remainder);
+        //System.out.println("REMINDER-->"+remainder);
         while (remainder != 0) {
             // if digits repeat
             if (map.containsKey(remainder)) {
@@ -66,11 +106,11 @@ public class InfiniteFractionProblem {
 
             // continue
             map.put(remainder, result.length());
-            System.out.println(map);
+            //System.out.println(map);
             res = remainder / den;
             //System.out.println("RES:-->"+res);
             result += String.valueOf(res);
-            System.out.println("RESULT:-->"+result);
+            //System.out.println("RESULT:-->"+result);
             remainder = (remainder % den) * 10;
         }
 
