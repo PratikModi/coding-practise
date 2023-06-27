@@ -40,7 +40,7 @@ public class CurrencyConversionProblemII {
             Map<String,Double> next = adjMatrix.get(R.src);
             for(String S : next.keySet()){
                 if(!visited.contains(S)){
-                    double newValue = R.exchangeRate*next.get(S);
+                        double newValue = R.exchangeRate*next.get(S);
                     System.out.println(newValue+"-->"+values.get(S));
                     if(newValue>values.get(S)){
                         values.put(S,newValue);

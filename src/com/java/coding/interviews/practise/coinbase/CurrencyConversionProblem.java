@@ -1,5 +1,7 @@
 package com.java.coding.interviews.practise.coinbase;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 /**
@@ -64,7 +66,7 @@ public class CurrencyConversionProblem {
             }
 
         }
-        return result;
+        return new BigDecimal(result).setScale(2,RoundingMode.CEILING).doubleValue();
     }
 }
 
