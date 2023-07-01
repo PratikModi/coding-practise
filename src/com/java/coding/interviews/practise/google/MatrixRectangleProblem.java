@@ -22,10 +22,10 @@ import java.util.Stack;
  */
 public class MatrixRectangleProblem {
     public static void main(String[] args) {
-        int[][] matrix = {{1,1,1,1},{1,1,1,1},{1,1,1,1},{0,1,1,1}};
+        int[][] matrix = {{1,0,1,0,0},{1,0,1,1,1},{1,1,1,1,1},{1,0,0,1,0}};
         System.out.println(findMaxRectangle(matrix));
-        matrix = new int[][]{{1,0,1,1},{1,1,1,1},{1,1,1,1},{0,1,0,1}};
-        System.out.println(findMaxRectangle(matrix));
+        //matrix = new int[][]{{1,0,1,1},{1,1,1,1},{1,1,1,1},{0,1,0,1}};
+        //System.out.println(findMaxRectangle(matrix));
     }
 
     public static int findMaxRectangle(int[][] matrix){
@@ -39,7 +39,8 @@ public class MatrixRectangleProblem {
         for(int i=0;i<matrix[0].length;i++){
             histogram[i]=matrix[0][i];
         }
-        //System.out.println(Arrays.toString(histogram)+"=0=>"+maxHistogramArea(histogram));
+        System.out.println("=====================");
+        System.out.println(Arrays.toString(histogram)+"\n=0=>"+maxHistogramArea(histogram));
         result = Math.max(result,maxHistogramArea(histogram));
         for(int i=1;i<matrix.length;i++){
             for(int j=0;j<matrix[i].length;j++){
@@ -49,8 +50,8 @@ public class MatrixRectangleProblem {
                     histogram[j]=0;
                 }
             }
-            //System.out.println("==================");
-            //System.out.println(Arrays.toString(histogram)+"==>"+maxHistogramArea(histogram));
+            System.out.println("==================");
+            System.out.println(Arrays.toString(histogram)+"\n==>"+maxHistogramArea(histogram));
             result = Math.max(result,maxHistogramArea(histogram));
         }
         return result;

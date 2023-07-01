@@ -20,6 +20,7 @@ public class HistogramRectangleProblem {
             } else {
                 topElement = stack.peek();
                 stack.pop();
+                System.out.println(stack);
                 max_area = Math.max(max_area, histogram[topElement] * (stack.isEmpty() ? i : i - stack.peek() - 1));
             }
         }

@@ -26,8 +26,8 @@ import java.util.stream.IntStream;
 public class KthNumberPermutationProblem {
     public static void main(String[] args) {
         System.out.println(findKthPermutation(3,4));
-        List<Integer> L = Arrays.asList(1,2,3,4,5);
-        System.out.println(L.stream().map(i->String.valueOf(i)).collect(Collectors.joining()));
+        //List<Integer> L = Arrays.asList(1,2,3,4,5);
+        //System.out.println(L.stream().map(i->String.valueOf(i)).collect(Collectors.joining()));
 
     }
     public static String findKthPermutation(int N, int K){
@@ -39,7 +39,7 @@ public class KthNumberPermutationProblem {
         for(int i=1;i<=N;i++){
             fact[i]=fact[i-1]*i;
         }
-        //System.out.println(Arrays.toString(fact));
+        System.out.println(Arrays.toString(fact));
         List<Integer> nums = IntStream.range(1,N+1).mapToObj(x->x).collect(Collectors.toList());
         StringBuilder sb = new StringBuilder();
         K--;

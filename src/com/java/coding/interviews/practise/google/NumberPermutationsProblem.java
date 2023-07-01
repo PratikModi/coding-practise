@@ -1,6 +1,7 @@
 package com.java.coding.interviews.practise.google;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Given a collection of numbers that might contain duplicates, return all possible unique permutations.
@@ -33,6 +34,8 @@ public class  NumberPermutationsProblem {
 
     public static List<List<Integer>> permutations2(List<Integer> L){
         List<List<Integer>> result = new ArrayList<>();
+
+        List<Integer> X = Arrays.stream(new int[]{1,2,3}).boxed().collect(Collectors.toList());
         //result.add(new ArrayList<>(L));
         backTrack(result,L,0,L.size()-1);
         //   System.out.println(result.size());
