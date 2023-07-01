@@ -36,6 +36,7 @@ package com.java.coding.interviews.practise.google;
  *
  *     Note: "_" marks the removed character.
  */
+//Time Complexity:- O(mn) Space Complexity:- O(mn)
 public class DistinctSubsequenceProblem {
 
     public static void main(String[] args) {
