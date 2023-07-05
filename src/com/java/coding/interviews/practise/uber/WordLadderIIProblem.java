@@ -42,11 +42,16 @@ import java.util.*;
  * Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
  */
 public class WordLadderIIProblem {
+
+    private static String begin;
+    private static Map<String,Integer> map;
+
     public static void main(String[] args) {
         String beginWord="red";
         String endWord="tax";
         List<String> dictionary = Arrays.asList("ted","tex","red","tax","tad","den","rex","pee");
         System.out.println(findLadders(beginWord,endWord,dictionary));
+        System.out.println(findLadders2(beginWord,endWord,dictionary));
     }
 
     public static List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
@@ -87,8 +92,8 @@ public class WordLadderIIProblem {
                 }
             }
         }
-        System.out.println(visited);
-        System.out.println(adj);
+        //System.out.println(visited);
+        //System.out.println(adj);
         List<String> path = new ArrayList<>();
         path.add(beginWord);
         dfs(beginWord,endWord,adj,path,result);
@@ -110,4 +115,70 @@ public class WordLadderIIProblem {
         }
 
     }
+
+    public static List<List<String>> findLadders2(String beginWord, String endWord, List<String> wordList) {
+        Set<String> wordSet = new HashSet<>(wordList);
+        List<List<String>> result = new ArrayList<>();
+        begin = beginWord;
+        Queue<String> queue = new LinkedList<>();
+        queue.add(beginWord);
+        map = new HashMap<>();
+        map.put(beginWord,1);
+        wordSet.remove(beginWord);
+        while(!queue.isEmpty()){
+            String temp = queue.poll();
+            //System.out.println(temp);
+            int level = map.get(temp);
+            if(temp.equals(endWord)) break;
+            for(int i=0;i<temp.length();i++){
+                for(char c='a';c<='z';c++){
+                    char[] chars = temp.toCharArray();
+                    if(chars[i]==c)continue;
+                    chars[i]=c;
+                    String new_word = new String(chars);
+                    if(wordSet.contains(new_word)){
+                        queue.add(new_word);
+                        wordSet.remove(new_word);
+                        map.put(new_word,level+1);
+                    }
+                }
+            }
+        }
+        System.out.println(map);
+        if(map.containsKey(endWord)){
+            List<String> path = new ArrayList<>();
+            path.add(endWord);
+            dfs2(endWord,path,result);
+        }
+
+        return result;
+
+    }
+
+    private static void dfs2(String endWord,List<String> path, List<List<String>> result){
+        //System.out.println(endWord);
+        if(endWord.equals(begin)){
+            Collections.reverse(path);
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        int level = map.get(endWord);
+        for(int i=0;i<endWord.length();i++){
+            for(char c ='a';c<='z';c++){
+                char[] chars = endWord.toCharArray();
+                if(chars[i]==c)continue;
+                chars[i]=c;
+                String new_word = new String(chars);
+                if(map.containsKey(new_word) && map.get(new_word)+1 == level){
+                    System.out.println(new_word);
+                    path.add(new_word);
+                    dfs2(new_word,path,result);
+                    path.remove(path.size()-1);
+                }
+            }
+        }
+
+    }
+
+
 }

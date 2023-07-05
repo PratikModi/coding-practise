@@ -32,22 +32,24 @@ package com.java.coding.interviews.practise.facebook;
 public class StringDigitProblem {
 
     public static void main(String[] args) {
-        boolean result = isValidNumber("123");
+        boolean result = isValid("6+1");
         System.out.println(result);
-        result = isValidNumber("abc");
+       /* result = isValidNumber("abc");
         System.out.println(result);
         result = isValidNumber("1e.1");
         System.out.println(result);
         result = isValidNumber("1.1.1");
-        System.out.println(result);
+        System.out.println(result);*/
     }
 
     public static boolean isValidNumber(String input){
         if(input==null || input.length()==0)
             return false;
         input = input.trim();
-        if(input.charAt(0)!='+' && input.charAt(0)!='-'
-                && input.charAt(0)!='.' && !Character.isDigit(input.charAt(0))){
+        if(input.indexOf(".")!=input.lastIndexOf(".") && input.indexOf("+")!=input.lastIndexOf("+") && input.indexOf("e")!=input.lastIndexOf("e") &&
+                input.charAt(0)!='+' && input.charAt(0)!='-'
+                && input.charAt(0)!='.' && !Character.isDigit(input.charAt(0))
+        ){
             return false;
         }
         if(input.length()==1 && !Character.isDigit(input.charAt(0)))
@@ -55,16 +57,16 @@ public class StringDigitProblem {
         boolean foundDotOrE=false;
         for(int i=1;i<input.length();i++){
             if(input.charAt(i)!='.' && !Character.isDigit(input.charAt(i)) &&
-                    input.charAt(i)!='+' && input.charAt(i)!='-')
+                    input.charAt(i)!='+' && input.charAt(i)!='-' && input.charAt(i)!='e')
                 return false;
             //Ensure that no ‘.’ comes after ‘e’.
             if(input.charAt(i)=='.'){
                 if(foundDotOrE)
                     return false;
                 foundDotOrE=true;
-                if((i+1)>=input.length())
-                    return false;
-                if(!Character.isDigit(input.charAt(i+1)))
+               /* if((i+1)>=input.length())
+                    return false;*/
+                if((i+1)>=input.length() || !Character.isDigit(input.charAt(i+1)))
                     return false;
             }
             if(input.charAt(i)=='e'){
@@ -79,5 +81,31 @@ public class StringDigitProblem {
             }
         }
         return true;
+    }
+
+    public static boolean isValid(String S){
+        boolean hasDigit=false;
+        boolean hasDecimal = false;
+        boolean hasExponent = false;
+        boolean needDigitAfterExponent = false;
+
+        S=S.trim();
+        for(int i=0;i<S.length();i++){
+            char c = S.charAt(i);
+            if(c=='+' || c=='-') {
+                if(i!=0 && (S.charAt(i-1)!='E' && S.charAt(i-1)!='e')) return false;
+            }else if(Character.isDigit(c)){
+                hasDigit=true;
+                needDigitAfterExponent=false;
+            }else if(c=='.'){
+                if(hasDecimal || hasExponent)return false;
+                hasDecimal=false;
+            }else if(c=='E' || c=='e'){
+                if(hasExponent || !hasDigit) return false;
+                hasExponent=true;
+                needDigitAfterExponent=true;
+            }else return false;
+        }
+        return !needDigitAfterExponent && hasDigit;
     }
 }
