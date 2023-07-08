@@ -34,21 +34,21 @@ public class WordSearchIIBoggleProblem {
             this.word = null;
         }
     }
-        public static Trie buildTrie(String[] words){
+    public static Trie buildTrie(String[] words){
         Trie root = new Trie();
-            for(String word : words){
-                Trie current = root;
-                for(int i=0;i<word.length();i++){
-                    char c = word.charAt(i);
-                    if(current.children[c-'a']==null){
-                        current.children[c-'a']=new Trie();
-                    }
-                    current = current.children[c-'a'];
+        for(String word : words){
+            Trie current = root;
+            for(int i=0;i<word.length();i++){
+                char c = word.charAt(i);
+                if(current.children[c-'a']==null){
+                    current.children[c-'a']=new Trie();
                 }
-                current.word=word;
+                current = current.children[c-'a'];
             }
-           return root;
+            current.word=word;
         }
+        return root;
+    }
 
     public static List<String> findWords(char[][] board, String[] words) {
         List<String> result = new ArrayList<>();
@@ -70,7 +70,7 @@ public class WordSearchIIBoggleProblem {
         root = root.children[c-'a'];
         if(root.word!=null){
             result.add(root.word);
-           root.word=null;
+            root.word=null;
         }
         board[i][j]='*';
         dfs(board,result,root,i-1,j);
