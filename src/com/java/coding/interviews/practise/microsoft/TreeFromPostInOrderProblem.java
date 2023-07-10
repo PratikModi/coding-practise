@@ -41,7 +41,7 @@ public class TreeFromPostInOrderProblem {
      *
      * Pick the last element in postorder traversal as a root.
      *
-     * Root value has index index in the inorder traversal, elements from in_left to index - 1 belong to the left subtree,
+     * Root value has index in the inorder traversal, elements from in_left to index - 1 belong to the left subtree,
      * and elements from index + 1 to in_right belong to the right subtree.
      *
      * Following the postorder logic, proceed recursively first to construct the right subtree helper(index + 1, in_right) and
