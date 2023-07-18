@@ -27,7 +27,7 @@ public class SymmetricTreeProblem {
     public static boolean isSame(TreeNode node1,TreeNode node2){
         if(node1==null && node2==null)
             return true;
-        if(node1!=null && node2!=null
+        if(node1!=null && node2!=null && node1.value == node2.value
                 && isSame(node1.left,node2.left)
                 && isSame(node1.right,node2.right))
             return true;
