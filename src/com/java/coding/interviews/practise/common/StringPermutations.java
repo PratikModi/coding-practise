@@ -25,6 +25,7 @@ public class StringPermutations {
             permutations.add(prefix);
         for(int i=0;i<remaining.length();i++){
             String remain = remaining.substring(0,i)+remaining.substring(i+1);
+            //System.out.println(remain);
             helper(prefix+remaining.charAt(i),remain,permutations);
         }
     }

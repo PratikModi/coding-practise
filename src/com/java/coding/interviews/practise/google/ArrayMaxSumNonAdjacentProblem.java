@@ -12,12 +12,14 @@ import java.util.TreeMap;
 public class ArrayMaxSumNonAdjacentProblem {
 
     public static void main(String[] args) {
-        int[] A = new int[]{1,1,2,2,2,3,3,3,6};
-        int result = findLargestSum(A);
+        int[] A = new int[]{5,  5, 10, 100, 10, 5};
+        int result = findLargestSumDP(A);
+        System.out.println(result);
+        result = findLargestSum(A);
         System.out.println(result);
     }
 
-    public static final int findLargestSum(int[] A){
+    public static final int findLargestSumDP(int[] A){
         if(A==null || A.length==0)
             return 0;
         TreeMap<Integer,Integer> M = new TreeMap<>();
@@ -44,6 +46,22 @@ public class ArrayMaxSumNonAdjacentProblem {
             counter++;
         }
         return Math.max(DP[M.size()-1][0],DP[M.size()-1][1]);
+    }
+
+    public static int findLargestSum(int[] A){
+        if(A==null || A.length==0)
+            return 0;
+        if(A.length==1)
+            return A[0];
+        int incl = A[0];
+        int excl=0;
+        int excl_new ;
+        for(int i=1;i<A.length;i++){
+            excl_new = Math.max(incl,excl);
+            incl = excl+A[i];
+            excl = excl_new;
+        }
+        return Math.max(incl,excl);
     }
 
 }
