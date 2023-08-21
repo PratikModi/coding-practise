@@ -27,6 +27,7 @@ import java.util.List;
  */
 //Time Complexity:- O(Sqrt(N^2))
 //Space Complexity:- O(1)
+
 public class ExactThreeDivisorProblem {
 
     public static void main(String[] args) {
