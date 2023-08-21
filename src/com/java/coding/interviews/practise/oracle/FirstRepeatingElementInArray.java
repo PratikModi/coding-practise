@@ -22,7 +22,6 @@ import java.util.Set;
  * Output: 6
  * Explanation: 6 is the first element that repeats
  */
-
 public class FirstRepeatingElementInArray {
 
     public static void main(String[] args) {

@@ -6,7 +6,6 @@ package com.java.coding.interviews.practise.oracle;
  * The list should only be traversed once.
  * For example if the linked list is 11->11->11->21->43->43->60 then removeDuplicates() should convert the list to 11->21->43->60.
  */
-
 public class RemoveDuplicatesFromSortedLinkedList {
 
     public static void main(String[] args) {
