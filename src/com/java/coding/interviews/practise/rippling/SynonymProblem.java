@@ -4,6 +4,27 @@ import java.util.*;
 
 public class SynonymProblem {
 
+    private static Map<String,String> synonymMapSimple(List<String[]> synonyms){
+        Map<String, String> synonymMap = new HashMap<>();
+        for(String[] synonym : synonyms){
+            String w1 = synonym[0];
+            String w2 = synonym[1];
+
+            if(synonymMap.containsKey(w1) || synonymMap.containsKey(w2)){
+                String value = synonymMap.get(w1);
+                if(value==null){
+                    value = synonymMap.get(w2);
+                }
+                synonymMap.put(w1,value);
+                synonymMap.put(w2,value);
+            }else{
+                synonymMap.put(w1,w1);
+                synonymMap.put(w2,w1);
+            }
+        }
+        return synonymMap;
+    }
+
     private static Map<String,String> synonymMap(List<String[]> synonyms){
         Map<String, String> syncMap = new HashMap<>();
         Map<String,Set<String>> map = new HashMap<>();
@@ -53,7 +74,7 @@ public class SynonymProblem {
         return syncMap;
     }
 
-  private static Map<String,Boolean> checkSynonym(List<List<String>> sentences, Map<String,List<String>> synonymMap){
+  private static Map<String,Boolean> checkSimilarity(List<List<String>> sentences, Map<String,String> synonymMap){
         Map<String,Boolean> map = new HashMap<>();
 
         for(List<String> sentence : sentences){
@@ -89,6 +110,44 @@ public class SynonymProblem {
         return map;
   }
 
+    public static void main(String[] args) {
+        String[] syn1 = {"a", "b"};
+        String[] syn2 = {"c", "d"};
+        String[] syn3 = {"e", "f"};
+        String[] syn4 = {"c", "f"};
+        String[] syn5 = {"f", "b"};
+        String[] syn6 = {"x", "y"};
+        String[] syn7 = {"p", "q"};
+        List<String[]> list = new ArrayList<>();
+        list.add(syn1); list.add(syn2); list.add(syn3); list.add(syn4);
+        list.add(syn5); list.add(syn6); list.add(syn7);
+
+        var synonymMap = synonymMap(list);
+
+        List<List<String>> sentenceList = new ArrayList<>();
+
+        List<String> sentence1 = new ArrayList<>();
+        sentence1.add("c is e");
+        sentence1.add("f is d");
+        sentenceList.add(sentence1);
+
+        List<String> sentence2 = new ArrayList<>();
+        sentence2.add("x is p");
+        sentence2.add("x is y");
+        sentenceList.add(sentence2);
+
+        List<String> sentence3 = new ArrayList<>();
+        sentence3.add("c is e");
+        sentence3.add("f is m");
+        sentenceList.add(sentence3);
+
+        Map<String, Boolean> stringBooleanMap = checkSimilarity(sentenceList, synonymMap);
+        System.out.println(stringBooleanMap);
+
+        String[] split = sentence1.get(0).split(" ");
+        Arrays.sort(split, String.CASE_INSENSITIVE_ORDER);
+        System.out.println(Arrays.toString(split));
+    }
 
 
 
