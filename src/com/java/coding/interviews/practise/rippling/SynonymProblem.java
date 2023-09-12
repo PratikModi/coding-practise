@@ -28,7 +28,7 @@ public class SynonymProblem {
     private static Map<String,String> synonymMap(List<String[]> synonyms){
         Map<String, String> syncMap = new HashMap<>();
         Map<String,Set<String>> map = new HashMap<>();
-        List<String> allWords = new ArrayList<>();
+        Set<String> allWords = new HashSet<>();
         for(String[] synonym:synonyms){
             String word1 = synonym[0];
             String word2 = synonym[1];
@@ -44,10 +44,11 @@ public class SynonymProblem {
             sync2.add(word1);
             map.put(word2,sync2);
         }
-
+        System.out.println("ADJ LIST:::"+map);
+        List<String> allWordsList = new ArrayList<>(allWords);
         while(!allWords.isEmpty()){
             Queue<String> queue = new LinkedList<>();
-            queue.add(allWords.remove(0));
+            queue.add(allWordsList.remove(0));
             Set<String> synonymSet = new HashSet<>();
             while(!queue.isEmpty()){
                 String pop = queue.poll();
@@ -56,21 +57,18 @@ public class SynonymProblem {
                     if(!synonymSet.contains(s)){
                         synonymSet.add(s);
                         queue.add(s);
-                        allWords.remove(s);
+                        allWordsList.remove(s);
                     }
                 }
             }
-
-            System.out.println(synonymSet);
+            System.out.println("Synonym Set:::"+synonymSet);
             String head=null;
             for(String s : synonymSet){
                 if(head==null)
                     head=s;
                 syncMap.put(s,head);
             }
-
         }
-
         return syncMap;
     }
 
