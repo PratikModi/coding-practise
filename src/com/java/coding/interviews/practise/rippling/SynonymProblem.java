@@ -2,6 +2,11 @@ package com.java.coding.interviews.practise.rippling;
 
 import java.util.*;
 
+/**
+ * Questions: -
+ * 1. Can we have a cycle in synonyms?
+ *  DFS method to use
+ */
 public class SynonymProblem {
 
     private static Map<String,String> synonymMapSimple(List<String[]> synonyms){
@@ -28,13 +33,13 @@ public class SynonymProblem {
     private static Map<String,String> synonymMap(List<String[]> synonyms){
         Map<String, String> syncMap = new HashMap<>();
         Map<String,Set<String>> map = new HashMap<>();
-        Set<String> allWords = new HashSet<>();
+        Set<String> allWordsSet = new HashSet<>();
         for(String[] synonym:synonyms){
             String word1 = synonym[0];
             String word2 = synonym[1];
 
-            allWords.add(word1);
-            allWords.add(word2);
+            allWordsSet.add(word1);
+            allWordsSet.add(word2);
 
             Set<String> sync1 = map.getOrDefault(word1,new HashSet<>());
             sync1.add(word2);
@@ -45,8 +50,9 @@ public class SynonymProblem {
             map.put(word2,sync2);
         }
         System.out.println("ADJ LIST:::"+map);
-        List<String> allWordsList = new ArrayList<>(allWords);
-        while(!allWords.isEmpty()){
+        List<String> allWordsList = new ArrayList<>(allWordsSet);
+
+        while(!allWordsList.isEmpty()){
             Queue<String> queue = new LinkedList<>();
             queue.add(allWordsList.remove(0));
             Set<String> synonymSet = new HashSet<>();
@@ -84,7 +90,7 @@ public class SynonymProblem {
                 continue;
             }
 
-            int i=0;
+            int i=-1;
             boolean result = true;
             while(result && ++i < sentence1.length){
                 if(sentence1[i].equals(sentence2[i])) continue;
@@ -106,6 +112,43 @@ public class SynonymProblem {
             }
         }
         return map;
+    }
+
+    public static List<Map<String,List<String>>> checkSimilarity2(List<String> sentences, Map<String,String> synonymMap){
+        List<Map<String,List<String>>> resultMap = new ArrayList<>();
+        Map<String,Boolean> visited = new HashMap<>();
+        sentences.stream().forEach(e->visited.put(e,false));
+        for(String sentence :sentences) {
+            if (!visited.get(sentence)) {
+                Map<String, List<String>> map = new HashMap<>();
+                map.put(sentence, new ArrayList<>());
+                for(String s : sentences) {
+                    if (!visited.containsKey(s) || !visited.get(s)) {
+                        String[] sentence1 = sentence.split(" ");
+                        String[] sentence2 = s.split(" ");
+                        int i = -1;
+                        boolean result = true;
+                        while (result && ++i < sentence1.length) {
+                            if (sentence1[i].equals(sentence2[i])) {
+                                continue;
+                            }
+                            if (sentence1.length != sentence2.length) {
+                                result = false;
+                            } else if (!synonymMap.containsKey(sentence1[i]) || !synonymMap.containsKey(sentence2[i]) || !synonymMap.get(sentence1[i]).equals(synonymMap.get(sentence2[i]))) {
+                                result = false;
+                            }
+                        }
+                        visited.put(sentence, true);
+                        if (result) {
+                            map.get(sentence).add(s);
+                            visited.put(s, true);
+                        }
+                    }
+                }
+                resultMap.add(new HashMap<>(map));
+            }
+        }
+        return resultMap;
     }
 
     public static void main(String[] args) {
@@ -145,6 +188,25 @@ public class SynonymProblem {
         String[] split = sentence1.get(0).split(" ");
         Arrays.sort(split, String.CASE_INSENSITIVE_ORDER);
         System.out.println(Arrays.toString(split));
+
+        String[] syn8 = {"main", "primary"};
+        String[] syn9 = {"rating", "score"};
+        String[] syn10 = {"primary", "secondary"};
+
+        List<String[]> list2 = List.of(syn8,syn9,syn10);
+        synonymMap = synonymMap(list2);
+        System.out.println(synonymMap);
+        List<String> sentences = new ArrayList<>();
+        sentences.add("primary email");
+        sentences.add("main email");
+        sentences.add("performance rating");
+        sentences.add("performance score");
+        sentences.add("secondary email");
+        sentences.add("bank account country");
+
+        var result = checkSimilarity2(sentences,synonymMap);
+        System.out.println(result);
+
     }
 
 
