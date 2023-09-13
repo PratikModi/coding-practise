@@ -9,6 +9,9 @@ import java.util.*;
  */
 public class SynonymProblem {
 
+
+    //Time Complexity:- O(N) -- N is no. of synonyms
+    //Space Complexity:- O(N)
     private static Map<String,String> synonymMapSimple(List<String[]> synonyms){
         Map<String, String> synonymMap = new HashMap<>();
         for(String[] synonym : synonyms){
@@ -30,6 +33,8 @@ public class SynonymProblem {
         return synonymMap;
     }
 
+    //Time Complexity:- O(N) -- Adj List + O(V+E)  for DFS
+    //Space Complexity:- O(N)
     private static Map<String,String> synonymMap(List<String[]> synonyms){
         Map<String, String> syncMap = new HashMap<>();
         Map<String,Set<String>> map = new HashMap<>();
@@ -78,6 +83,7 @@ public class SynonymProblem {
         return syncMap;
     }
 
+    //Time Complexity:- O(N) -- N .. no of sentences
     private static Map<String,Boolean> checkSimilarity(List<List<String>> sentences, Map<String,String> synonymMap){
         Map<String,Boolean> map = new HashMap<>();
 
@@ -114,6 +120,7 @@ public class SynonymProblem {
         return map;
     }
 
+    //Time Complexity:- O(N^2) -- N .. no of sentences + O(V+E) -- DFS + O(M) -- M - No Of Synonyms
     public static List<Map<String,List<String>>> checkSimilarity2(List<String> sentences, Map<String,String> synonymMap){
         List<Map<String,List<String>>> resultMap = new ArrayList<>();
         Map<String,Boolean> visited = new HashMap<>();
