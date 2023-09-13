@@ -158,6 +158,33 @@ public class SynonymProblem {
         return resultMap;
     }
 
+    //Time Complexity:- O(N) -- N .. no of sentences + O(V+E) -- DFS + O(M) -- M - No Of Synonyms
+    public static Map<String,List<String>> checkSimilarity3(List<String> sentences, Map<String,String> synonymMap){
+        Map<String,List<String>> resultMap = new HashMap<>();
+        //Map<String,List<String>> map = new HashMap<>();
+        for(String sentence : sentences){
+            String normalized = normalizeSentence(sentence,synonymMap);
+            if(resultMap.containsKey(normalized)){
+                resultMap.get(normalized).add(sentence);
+            }else{
+                List<String> list = new ArrayList<>();
+                list.add(sentence);
+                resultMap.put(normalized,list);
+            }
+        }
+        return resultMap;
+    }
+
+    private static String normalizeSentence(String sentence, Map<String,String> synonymMap){
+        String[] words = sentence.split(" ");
+        StringBuilder normalizedSentence = new StringBuilder();
+        for(String word : words){
+            normalizedSentence.append(synonymMap.getOrDefault(word,word)).append(" ");
+        }
+        return normalizedSentence.toString();
+    }
+
+
     public static void main(String[] args) {
         String[] syn1 = {"a", "b"};
         String[] syn2 = {"c", "d"};
@@ -202,7 +229,7 @@ public class SynonymProblem {
 
         List<String[]> list2 = List.of(syn8,syn9,syn10);
         synonymMap = synonymMap(list2);
-        System.out.println(synonymMap);
+        //System.out.println(synonymMap);
         List<String> sentences = new ArrayList<>();
         sentences.add("primary email");
         sentences.add("main email");
@@ -212,8 +239,9 @@ public class SynonymProblem {
         sentences.add("bank account country");
 
         var result = checkSimilarity2(sentences,synonymMap);
-        System.out.println(result);
-
+        //System.out.println(result);
+        var result2 = checkSimilarity3(sentences,synonymMap);
+        System.out.println(result2);
     }
 
 
