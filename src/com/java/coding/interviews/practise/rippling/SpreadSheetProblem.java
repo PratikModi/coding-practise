@@ -26,24 +26,24 @@ class ExcelCell {
         }
     }
 
-    public void updateObservers(Map<String,ExcelCell> spreadSheet){
+    public void updateObservers(Map<String,ExcelCell> cellMap){
         String exp = expression;
         if(isExpression){ //A=1+B
-            System.out.println("HERE");
             String[] split = exp.substring(1).split("\\+");
+            System.out.println(Arrays.toString(split));
             for(String s: split){
                 if(!Character.isDigit(s.charAt(0)) && s.charAt(0)!='-'){
-                    if(!spreadSheet.containsKey(s)){
+                    if(!cellMap.containsKey(s)){
                         throw new IllegalStateException("Cell "+s+" not found.");
                     }
-                    if(this.observers.contains(spreadSheet.get(s))){ //A:=A
+                    if(this.observers.contains(cellMap.get(s))){ //A:=A
                         throw new IllegalStateException("Cycle Detected.");
                     }
-                    spreadSheet.get(s).addObservers(this);
+                    cellMap.get(s).addObservers(this);
+                    System.out.println("OBSERVERS::"+cellMap.get(s).observers);
                 }
             }
         }
-        System.out.println(observers);
     }
 
     public void setValue(Map<String,ExcelCell> cellMap){
@@ -64,12 +64,14 @@ class ExcelCell {
         }else{
             calcValue=Integer.parseInt(value);
         }
-        value = String.valueOf(calcValue);
+        this.value = String.valueOf(calcValue);
         notifyObservers(cellMap);
     }
 
     public void notifyObservers(Map<String,ExcelCell> cellMap){
+        //System.out.println("Notify::"+cellMap.get(this.cellName).observers);
         for(ExcelCell cell : this.observers){
+            System.out.println("In Loop::"+cell);
             cell.setValue(cellMap);
         }
     }
@@ -92,7 +94,9 @@ class ExcelCell {
         return "ExcelCell{" +
                 "cellName='" + cellName + '\'' +
                 ", value='" + value + '\'' +
+                ", expression='" + expression + '\'' +
                 ", isExpression=" + isExpression +
+                ", observers=" + observers +
                 '}';
     }
 }
@@ -113,11 +117,14 @@ class ExcelSpreadSheet{
         cellMap.put(cellName,cell);
 
         cell.updateObservers(cellMap);
+        System.out.println(cell);
         cell.setValue(cellMap);
+
     }
 
     public void printSheet(){
         for(var entry : cellMap.entrySet()){
+            //System.out.println(entry.getValue());
             System.out.println(entry.getKey()+"->"+entry.getValue().expression+"->"+entry.getValue().value);
         }
     }
@@ -171,7 +178,7 @@ public class SpreadSheetProblem {
         //sheet.modify("A2","=1+2");
         //sheet.modify("B2","=-2+3");
         sheet.modify("A3","=1+A1");
-        sheet.modify("A1","2");
+        //sheet.modify("A1","2");
         //sheet.modify("A3","=1+A1");
 
         sheet.printSheet();
