@@ -62,7 +62,7 @@ class ExcelCell {
                 }
             }
         }else{
-            calcValue=Integer.parseInt(value);
+            calcValue=Integer.parseInt(expression);
         }
         this.value = String.valueOf(calcValue);
         notifyObservers(cellMap);
@@ -114,11 +114,14 @@ class ExcelSpreadSheet{
     public void modify(String cellName, String value){
         ExcelCell cell = new ExcelCell(cellName,value);
         checkCycle(cell);
-        cellMap.put(cellName,cell);
+        var excelCell = cellMap.getOrDefault(cellName,new ExcelCell(cellName,value));
+        excelCell.expression=value;
+        excelCell.cellName=cellName;
+        cellMap.put(cellName,excelCell);
 
-        cell.updateObservers(cellMap);
-        System.out.println(cell);
-        cell.setValue(cellMap);
+        excelCell.updateObservers(cellMap);
+        //System.out.println("xxxxxx:::"+excelCell);
+        excelCell.setValue(cellMap);
 
     }
 
@@ -172,13 +175,13 @@ public class SpreadSheetProblem {
     public static void main(String[] args) {
         ExcelSpreadSheet sheet = new ExcelSpreadSheet("Test");
         sheet.modify("A1","1");
-        //sheet.modify("B1","2");
+        sheet.modify("B1","2");
         //sheet.printSheet();
 
-        //sheet.modify("A2","=1+2");
-        //sheet.modify("B2","=-2+3");
+        sheet.modify("A2","=1+2");
+        sheet.modify("B2","=-2+3");
         sheet.modify("A3","=1+A1");
-        //sheet.modify("A1","2");
+        sheet.modify("A1","2");
         //sheet.modify("A3","=1+A1");
 
         sheet.printSheet();
