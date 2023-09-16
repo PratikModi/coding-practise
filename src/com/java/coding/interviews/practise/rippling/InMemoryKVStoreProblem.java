@@ -2,6 +2,18 @@ package com.java.coding.interviews.practise.rippling;
 
 import java.util.*;
 
+/**
+ * Questions:-
+ * ==========
+ * 1. Are we supporting Transactions // Nested Transactions also?
+ * 2. If Nested transactions is committed should be implied the changes to global store also or only to immediate next store
+ *
+ * Talking Points:-
+ * ===============
+ * 1. Use HashMap to store the value
+ * 2. Is it safe to assume Key/Value would be String only
+ */
+
 interface IKeyValueStore{
     void set(String key, String value);
     String get(String key);
@@ -175,7 +187,7 @@ class TransactionalKeyValueStore implements ITransactionalKeyValueStore{
         }
         for(String key : txn.deletedKeys){
             //if(nextTxn==null){
-                globalStore.delete(key);
+            globalStore.delete(key);
             //}
             if(nextTxn!=null){
                 nextTxn.delete(key);
@@ -196,6 +208,21 @@ class TransactionalKeyValueStore implements ITransactionalKeyValueStore{
 
 
 public class InMemoryKVStoreProblem {
+
+    public static void main(String[] args) {
+        TransactionalKeyValueStore keyValueStore = new TransactionalKeyValueStore();
+        keyValueStore.set("1","One");
+        keyValueStore.set("2","Two");
+        keyValueStore.begin();
+        keyValueStore.set("3","Three");
+        keyValueStore.set("2","22");
+        keyValueStore.delete("1");
+        keyValueStore.commit();
+        System.out.println(keyValueStore.get("2"));
+        System.out.println(keyValueStore.get("3"));
+        System.out.println(keyValueStore.get("1"));
+    }
+
 }
 
 
