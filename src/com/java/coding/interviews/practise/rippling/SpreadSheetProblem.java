@@ -3,6 +3,19 @@ package com.java.coding.interviews.practise.rippling;
 
 import java.util.*;
 
+/**
+ * Question:-
+ * =========
+ * 1. What operation we need to support?
+ * 2. Can cell have reference value like A1 = A3
+ *
+ * Talking Points:-
+ * ===============
+ * 1. Observer Pattern (Pub Sub Model) for notifying the cells if their parent cell has changed the value
+ * 2. Early Loading.... Calculate the value while modifying (on write) itself so display would be O(1)
+ *
+ */
+
 class ExcelCell {
 
     public String cellName;

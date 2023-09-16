@@ -3,9 +3,19 @@ package com.java.coding.interviews.practise.rippling;
 import java.util.*;
 
 /**
- * Questions: -
+ * Questions:-
+ * ==========
  * 1. Can we have a cycle in synonyms?
- *  DFS method to use
+ * 2. Can it be transitive?
+ * DFS method to use
+ *  Talking Point:-
+ *  ==============
+ *  Adjacency List
+ *  DFS
+ *  Flat it out
+ *  a,b --> (a,a) (b,a) all synonym will have same parent or representative
+ *  Can be also solved via Union Find
+ *  Time Complexity/Space Complexity
  */
 public class SynonymProblem {
 

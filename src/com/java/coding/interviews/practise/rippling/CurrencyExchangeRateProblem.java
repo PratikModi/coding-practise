@@ -14,6 +14,17 @@ import java.util.*;
  * Rates: ['USD', 'JPY', 110] ['USD', 'AUD', 1.45] ['JPY', 'GBP', 0.0070]
  * To/From currency ['GBP', 'AUD']
  * Find the rate for the 'To/From' currency. In this case, the correct result is 1.89.
+ * Question:-
+ * =========
+ * 1. What to return of from/to currencies are same?
+ * 2. What is there is no path exists?
+ * 3. Are the rate bidirectional?
+ * 4. Do we need to find the Shortest Path or Cheapest Path?
+ * Talking Point:-
+ * ==============
+ * Adjacency Matrix
+ * DFS
+ * Time Complexity/Space Complexity
  */
 public class CurrencyExchangeRateProblem {
 
