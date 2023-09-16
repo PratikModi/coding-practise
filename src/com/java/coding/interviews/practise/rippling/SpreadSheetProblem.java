@@ -30,7 +30,7 @@ class ExcelCell {
         String exp = expression;
         if(isExpression){ //A=1+B
             String[] split = exp.substring(1).split("\\+");
-            System.out.println(Arrays.toString(split));
+            //System.out.println(Arrays.toString(split));
             for(String s: split){
                 if(!Character.isDigit(s.charAt(0)) && s.charAt(0)!='-'){
                     if(!cellMap.containsKey(s)){
@@ -40,7 +40,7 @@ class ExcelCell {
                         throw new IllegalStateException("Cycle Detected.");
                     }
                     cellMap.get(s).addObservers(this);
-                    System.out.println("OBSERVERS::"+cellMap.get(s).observers);
+                    //System.out.println("OBSERVERS::"+cellMap.get(s).observers);
                 }
             }
         }
@@ -71,7 +71,7 @@ class ExcelCell {
     public void notifyObservers(Map<String,ExcelCell> cellMap){
         //System.out.println("Notify::"+cellMap.get(this.cellName).observers);
         for(ExcelCell cell : this.observers){
-            System.out.println("In Loop::"+cell);
+            //System.out.println("In Loop::"+cell);
             cell.setValue(cellMap);
         }
     }
@@ -182,7 +182,8 @@ public class SpreadSheetProblem {
         sheet.modify("B2","=-2+3");
         sheet.modify("A3","=1+A1");
         sheet.modify("A1","2");
-        //sheet.modify("A3","=1+A1");
+        sheet.modify("A4","=A1+A3");
+        sheet.modify("A3","=2+A1");
 
         sheet.printSheet();
     }
