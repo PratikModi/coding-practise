@@ -178,17 +178,17 @@ class TransactionalKeyValueStore implements ITransactionalKeyValueStore{
         var txn = txns.pop(); // Current Transaction
         var nextTxn = txns.isEmpty()?null:txns.peek();
         for(var entry : txn.getAllEntries()){
-            //if(nextTxn==null) {
-            globalStore.set(entry.getKey(), entry.getValue()); // Check what behavior is expected
-            //}
+            if(nextTxn==null) {
+                globalStore.set(entry.getKey(), entry.getValue()); // Check what behavior is expected
+            }
             if(nextTxn!=null){
                 nextTxn.set(entry.getKey(), entry.getValue());
             }
         }
         for(String key : txn.deletedKeys){
-            //if(nextTxn==null){
-            globalStore.delete(key);
-            //}
+            if(nextTxn==null){
+                globalStore.delete(key);
+            }
             if(nextTxn!=null){
                 nextTxn.delete(key);
             }

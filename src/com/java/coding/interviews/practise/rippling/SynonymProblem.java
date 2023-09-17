@@ -6,7 +6,7 @@ import java.util.*;
  * Questions:-
  * ==========
  * 1. Can we have a cycle in synonyms?
- * 2. Can it be transitive?
+ * 2. Can it be transitive? -- Don't ask
  * DFS method to use
  *  Talking Point:-
  *  ==============
