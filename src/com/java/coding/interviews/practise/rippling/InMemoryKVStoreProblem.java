@@ -144,7 +144,11 @@ class TransactionalKeyValueStore implements ITransactionalKeyValueStore{
 
     @Override
     public Set<Map.Entry<String, String>> getAllEntries() {
-        return null;
+        if(txns.isEmpty()){
+            return globalStore.getAllEntries();
+        }
+        var txnStore = txns.peek();
+        return txnStore.getAllEntries();
     }
 
     @Override
@@ -158,7 +162,8 @@ class TransactionalKeyValueStore implements ITransactionalKeyValueStore{
             Transaction txn = new Transaction(globalStore.getInternalCopy());
             txns.push(txn);
         }else{
-            txns.push(new Transaction(txns.peek().getInternalCopy()));        }
+            txns.push(new Transaction(txns.peek().getInternalCopy()));
+        }
     }
 
     @Override
@@ -200,8 +205,7 @@ class TransactionalKeyValueStore implements ITransactionalKeyValueStore{
         if(txns.isEmpty()){
             throw new IllegalStateException("No Active Txn.");
         }else{
-            var txnStore = txns.peek();
-            txnStore.clearAll();
+            txns.pop();
         }
     }
 }
@@ -210,17 +214,21 @@ class TransactionalKeyValueStore implements ITransactionalKeyValueStore{
 public class InMemoryKVStoreProblem {
 
     public static void main(String[] args) {
-        TransactionalKeyValueStore keyValueStore = new TransactionalKeyValueStore();
-        keyValueStore.set("1","One");
-        keyValueStore.set("2","Two");
-        keyValueStore.begin();
-        keyValueStore.set("3","Three");
-        keyValueStore.set("2","22");
-        keyValueStore.delete("1");
-        keyValueStore.commit();
-        System.out.println(keyValueStore.get("2"));
-        System.out.println(keyValueStore.get("3"));
-        System.out.println(keyValueStore.get("1"));
+        TransactionalKeyValueStore db = new TransactionalKeyValueStore();
+        db.set("Key1","1");
+        db.set("Key2","2");
+        System.out.println(db.getAllEntries());
+        db.begin();
+        db.set("Key3","3");
+        db.rollback();
+        System.out.println(db.getAllEntries());
+        System.out.println(db.get("Key1"));
+        System.out.println(db.get("Key2"));
+        System.out.println(db.get("Key3"));
+        db.begin();
+        db.delete("Key3");
+        db.commit();
+        System.out.println(db.get("Key3"));
     }
 
 }
