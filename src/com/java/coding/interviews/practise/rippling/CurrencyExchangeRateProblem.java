@@ -28,6 +28,7 @@ import java.util.*;
  */
 public class CurrencyExchangeRateProblem {
 
+    //Time Complexity:- O(N) -- N is no. of of exchange rates
     private static Map<String, Map<String,Double>> prepareAdjList(List<ExchangeRate> exchangeRateList){
         Map<String,Map<String,Double>> adjList = new HashMap<>();
         for(ExchangeRate rate : exchangeRateList){
@@ -39,6 +40,7 @@ public class CurrencyExchangeRateProblem {
         return adjList;
     }
 
+    //Time Complexity: O(V+E) -- DFS
     private static Double findShortestPath(String source, String dest, Map<String,Map<String,Double>> currencyMap){
         if(source.equals(dest)){
             return 1.0;
@@ -70,6 +72,7 @@ public class CurrencyExchangeRateProblem {
         return 0.0;
     }
 
+    //Time Complexity: O(V+E) -- DFS
     public static Double findCheapestPath(String source, String dest, Map<String,Map<String,Double>> currencyMap){
         if(source.equals(dest)){
             return 1.0;
