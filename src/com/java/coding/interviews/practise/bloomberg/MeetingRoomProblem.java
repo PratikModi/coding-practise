@@ -36,6 +36,7 @@ public class MeetingRoomProblem {
             }
             minHeap.add(earliestEnding);
         }
+        System.out.println(minHeap.size());
         return true;
     }
 

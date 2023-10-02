@@ -17,7 +17,7 @@ import java.util.*;
  * Question:-
  * =========
  * 1. What to return of from/to currencies are same? Say it 1.
- * 2. What is there is no path exists?
+ * 2. What if there is no path exists?
  * 3. Are the rate bidirectional?
  * 4. Do we need to find the Shortest Path or Cheapest Path? Don't ask
  * Talking Point:-

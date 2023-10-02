@@ -25,6 +25,9 @@ public class Main {
         var result = list.stream().filter(e->e.equals("ABC")).map(e->e.charAt(1)).collect(Collectors.toList());
         //System.out.println(result);
         System.out.println(Math.min(2,3)&1);
+        int v=2;
+        v+=++v;
+        System.out.println(v);
 
 
     }
