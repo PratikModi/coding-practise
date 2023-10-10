@@ -34,8 +34,8 @@ public class CurrencyExchangeRateProblem {
         for(ExchangeRate rate : exchangeRateList){
             adjList.putIfAbsent(rate.from,new HashMap<>());
             adjList.get(rate.from).put(rate.to, rate.rate);
-            adjList.putIfAbsent(rate.to,new HashMap<>());
-            adjList.get(rate.to).put(rate.from,1/ rate.rate);
+            /*adjList.putIfAbsent(rate.to,new HashMap<>());
+            adjList.get(rate.to).put(rate.from,1/ rate.rate);*/
         }
         return adjList;
     }
@@ -45,7 +45,7 @@ public class CurrencyExchangeRateProblem {
         if(source.equals(dest)){
             return 1.0;
         }
-        if(!currencyMap.containsKey(source) || !currencyMap.containsKey(dest)) {
+        if(!currencyMap.containsKey(source) /*|| !currencyMap.containsKey(dest)*/) {
             return 0.0;
         }
         Queue<Pair> queue = new LinkedList<>();
@@ -77,7 +77,7 @@ public class CurrencyExchangeRateProblem {
         if(source.equals(dest)){
             return 1.0;
         }
-        if(!currencyMap.containsKey(source) || !currencyMap.containsKey(dest)){
+        if(!currencyMap.containsKey(source) /*|| !currencyMap.containsKey(dest)*/){
             return 0.0;
         }
         PriorityQueue<Pair> pq = new PriorityQueue<>();
@@ -89,14 +89,16 @@ public class CurrencyExchangeRateProblem {
                 continue;
             visited.put(poll.currency,poll.rate);
             Map<String,Double> next = currencyMap.get(poll.currency);
-            for(Map.Entry<String,Double> entry : next.entrySet()){
-                Double newRate = poll.rate*entry.getValue();
-                if(entry.getKey().equals(source))
-                    continue;
-                if(visited.containsKey(entry.getKey()) && visited.get(entry.getKey())> newRate){
-                    visited.put(entry.getKey(),newRate);
+            if((next!=null)) {
+                for (Map.Entry<String, Double> entry : next.entrySet()) {
+                    Double newRate = poll.rate * entry.getValue();
+                    if (entry.getKey().equals(source))
+                        continue;
+                    if (visited.containsKey(entry.getKey()) && visited.get(entry.getKey()) > newRate) {
+                        visited.put(entry.getKey(), newRate);
+                    }
+                    pq.add(new Pair(entry.getKey(), newRate));
                 }
-                pq.add(new Pair(entry.getKey(), newRate));
             }
         }
         return visited.get(dest);
