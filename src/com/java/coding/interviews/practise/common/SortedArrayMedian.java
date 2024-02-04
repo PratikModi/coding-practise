@@ -29,11 +29,12 @@ public class SortedArrayMedian {
 
     public static double median(int[] A , int[] B){
         int total = A.length+B.length;
+        System.out.println(total);
         if(total%2!=0){
-            if((total/2)>A.length){
-                return (double)B[total/2];
+            if((total/2)>=A.length){
+                return (double)B[(total/2-A.length)];
             }else{
-                return (double)A[total/2];
+                return (double)A[total-B.length-1];
             }
         }
         else{

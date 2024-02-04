@@ -147,14 +147,14 @@ public class CustomTaskScheduler {
 
     public static void main(String[] args) {
         CustomTaskScheduler customTaskScheduler = new CustomTaskScheduler(10);
-        /*Runnable task1 = getRunnableTask("Task1");
-        customTaskScheduler.schedule(task1, 1, TimeUnit.SECONDS);*/
+        Runnable task1 = getRunnableTask("Task1");
+        customTaskScheduler.schedule(task1, 1, TimeUnit.SECONDS);
         Runnable task2 = getRunnableTask("Task2");
         customTaskScheduler.scheduleAtFixedRate(task2,1, 2, TimeUnit.SECONDS);
-        /*Runnable task3 = getRunnableTask("Task3");
+        Runnable task3 = getRunnableTask("Task3");
         customTaskScheduler.scheduleWithFixedDelay(task3,1,2,TimeUnit.SECONDS);
         Runnable task4 = getRunnableTask("Task4");
-        customTaskScheduler.scheduleAtFixedRate(task4,1, 2, TimeUnit.SECONDS);*/
+        customTaskScheduler.scheduleAtFixedRate(task4,1, 2, TimeUnit.SECONDS);
         customTaskScheduler.start();
     }
 }
