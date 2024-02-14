@@ -21,6 +21,10 @@ public class EvaluateExpressionProblem {
      * 4. is operator case-sensitive?
      * 5. only positive number?
      * 6. add(1,2)) ,add((1,2)) valid/invalid input?
+     * 7. can it have negative number?
+     *
+     * //Assumption
+     * 1. Input is always valid
      */
 
     public static int evaluate(String expression){
@@ -148,6 +152,59 @@ public class EvaluateExpressionProblem {
         return number.pop();
     }
 
+    public static boolean validate2(String expression){
+        char[] tokens =  expression.toCharArray();
+        Stack<String> operators = new Stack<>();
+        Stack<String> numbers = new Stack<>();
+        Stack<Character> openParenthesis = new Stack<>();
+        Stack<Character> comma = new Stack<>();
+        int N = tokens.length;
+        for(int i=0;i< tokens.length;i++){
+            if(tokens[i]!=' '){
+                if(Character.isAlphabetic(tokens[i])){
+                    int start=i;
+                    while(i<N && Character.isAlphabetic(tokens[i])){
+                        i++;
+                    }
+                    operators.push(expression.substring(start,i));
+                    i--;
+                }else if(Character.isDigit(tokens[i])){
+                    int start=i;
+                    while(i<N && Character.isDigit(tokens[i])){
+                        i++;
+                    }
+                    numbers.push(expression.substring(start,i));
+                    i--;
+                }else if(tokens[i]=='('){
+                    openParenthesis.push('(');
+                }else if(tokens[i]==','){
+                    comma.push(',');
+                }else{
+                    if(!numbers.isEmpty())
+                            numbers.pop();
+                        else return false;
+                        if(!comma.isEmpty())
+                            comma.pop();
+                        else return false;
+                        if(!numbers.isEmpty())
+                            numbers.pop();
+                        else return false;
+                        if(!openParenthesis.isEmpty())
+                            openParenthesis.pop();
+                        else return false;
+                        if(!operators.isEmpty()){
+                            operators.pop();
+                            numbers.push("999");
+                        }
+                    }
+                }
+        }
+        if(!openParenthesis.isEmpty() || !comma.isEmpty() || numbers.isEmpty() || !operators.isEmpty())
+            return false;
+
+        return true;
+    }
+
     public static int apply(String operation, int b, int a){
         if(operation.equals("add")){
             return a+b;
@@ -160,10 +217,11 @@ public class EvaluateExpressionProblem {
 
 
     public static void main(String[] args) {
-        System.out.println(evaluate("add(1,2)"));
+        /*System.out.println(evaluate("add(1,2)"));
         System.out.println(calculate("add(1,2)"));
         System.out.println(evaluate("sub(add(238943, 2343), add(1, sub(323, 43)))"));
-        System.out.println(calculate("sub(add(238943, 2343), add(1, sub(323, 43)))"));
+        System.out.println(calculate("sub(add(238943, 2343), add(1, sub(323, 43)))"));*/
+        System.out.println(validate2("sub(add(238943, 2343), add(1, sub(323, 43)))"));
         //System.out.println(validate("add(1,add(2))"));
     }
 
