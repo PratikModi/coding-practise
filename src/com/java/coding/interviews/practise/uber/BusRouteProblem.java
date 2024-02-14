@@ -71,10 +71,7 @@ public class BusRouteProblem {
                 }
             }
             result++;
-
         }
-
-
         return -1;
     }
 

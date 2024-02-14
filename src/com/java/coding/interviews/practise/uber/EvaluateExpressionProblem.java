@@ -222,7 +222,7 @@ public class EvaluateExpressionProblem {
         System.out.println(evaluate("sub(add(238943, 2343), add(1, sub(323, 43)))"));
         System.out.println(calculate("sub(add(238943, 2343), add(1, sub(323, 43)))"));*/
         System.out.println(validate2("sub(add(238943, 2343), add(1, sub(323, 43)))"));
-        //System.out.println(validate("add(1,add(2))"));
+        System.out.println(validate2("add(1,2)"));
     }
 
 }
