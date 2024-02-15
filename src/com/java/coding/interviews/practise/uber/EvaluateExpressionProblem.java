@@ -199,7 +199,9 @@ public class EvaluateExpressionProblem {
                     }
                 }
         }
-        if(!openParenthesis.isEmpty() || !comma.isEmpty() || numbers.isEmpty() || !operators.isEmpty())
+        if(numbers.peek().equals("999"))
+            numbers.pop();
+        if(!openParenthesis.isEmpty() || !comma.isEmpty() || !numbers.isEmpty() || !operators.isEmpty())
             return false;
 
         return true;
