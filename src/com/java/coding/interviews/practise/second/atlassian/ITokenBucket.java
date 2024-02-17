@@ -1,7 +1,6 @@
-package com.java.coding.interviews.practise.atlassian;
+package com.java.coding.interviews.practise.second.atlassian;
 
 public interface ITokenBucket {
-
     long capacity();
     long availableTokens();
     boolean tryConsume();
