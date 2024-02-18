@@ -4,6 +4,23 @@ import java.util.Stack;
 
 public class ExpressionEvaluationProblem {
 
+
+    // Recursive Approach
+
+    /**
+     * Pros :- Constant Space
+     * Cons :- O(2^n) close exponential
+     * Question:-
+     * 1. Is input always valid?
+     * 2. Only add/sub operation?
+     * 3. Do we need to take care of spaces in between?
+     * 4. size of the input?
+     * 5. is operator case-sensitive?
+     * 6. only positive number?
+     * 7. add(1,2)) ,add((1,2)) valid/invalid input?
+     * 8. can it have negative number?
+     *
+     */
     public static int evaluate(String expression){
         if(expression==null || expression.length()==0)
             return -1;
@@ -34,7 +51,11 @@ public class ExpressionEvaluationProblem {
             }
         }
         if(openParenthesis==-1 && comma==-1 && closeParenthesis==-1)
-            return Integer.parseInt(expression);
+            try {
+                return Integer.parseInt(expression);
+            }catch (NumberFormatException nfe){
+                throw new RuntimeException("Invalid input number!!! "+expression);
+            }
         String operand = expression.substring(0,openParenthesis);
         int operand1 = evaluate(expression.substring(openParenthesis+1,comma));
         int operand2 = evaluate(expression.substring(comma+1,closeParenthesis));
@@ -44,6 +65,13 @@ public class ExpressionEvaluationProblem {
             return operand1-operand2;
         else throw new RuntimeException("Invalid Expression!!");
     }
+
+    //Using Stack Data Structure -- LIFO
+
+    /**
+     * Time Complexity: - O(n)
+     * Space Complexity: - O(n)
+     */
 
     public static int calculate(String expression){
         if(expression==null || expression.length()==0)
@@ -151,6 +179,8 @@ public class ExpressionEvaluationProblem {
         System.out.println(validate("add(1,2)"));
         System.out.println(validate("sub(add(238943,, 2343), add(1, sub(323, 43)))"));
         System.out.println(validate("add(1,2))"));
+        //System.out.println(evaluate("add(bad,2)"));
+        System.out.println(calculate("add(bad,2)"));
     }
 
 }
