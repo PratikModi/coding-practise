@@ -1,37 +1,43 @@
 package com.java.coding.interviews.practise.atlassian.snakegame;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 public class Snake {
+
     private Cell head;
+
     private LinkedList<Cell> snakeBody;
+
+    private Set<Cell> snakeBodySet;
 
     public Snake(Cell initPos) {
         this.head = initPos;
-        snakeBody = new LinkedList<>();
-        snakeBody.add(head);
-        head.setCellType(CellType.SNAKE_NODE);
+        this.head.setCellType(CellType.SNAKE);
+        this.snakeBody = new LinkedList<>();
+        this.snakeBody.addFirst(head);
+        this.snakeBodySet = new HashSet<>();
+        this.snakeBodySet.add(head);
     }
 
     public void grow(){
-        snakeBody.add(head);
+        this.snakeBody.add(head);
+        this.snakeBodySet.add(head);
     }
 
     public void move(Cell nextCell){
         Cell tail = snakeBody.removeLast();
         tail.setCellType(CellType.EMPTY);
-        head = nextCell;
-        head.setCellType(CellType.SNAKE_NODE);
-        snakeBody.addFirst(head);
+        this.snakeBodySet.remove(tail);
+        this.head=nextCell;
+        this.head.setCellType(CellType.SNAKE);
+        this.snakeBody.addFirst(head);
+        this.snakeBodySet.add(head);
     }
 
-    public boolean checkIfCrash(Cell nextCell){
-        for(Cell cell : snakeBody){
-            if(cell==nextCell){
-                return true;
-            }
-        }
-        return false;
+    public boolean checkCrash(Cell nextCell){
+        return snakeBodySet.contains(nextCell);
     }
 
     public Cell getHead() {

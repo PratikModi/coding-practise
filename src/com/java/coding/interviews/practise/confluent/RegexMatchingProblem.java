@@ -39,6 +39,11 @@ public class RegexMatchingProblem {
         System.out.println("cat  *t*a*c* "+res);
         System.out.println("cat  *t*a*c* "+res2);
 
+        res = isMatch("aab","c*a*b");
+        res2 = isMatchConstantSpace("aab","c*a*b");
+        System.out.println("aab  c*a*b "+res);
+        System.out.println("aab  c*a*b "+res2);
+
     }
 
     public static boolean isMatch(String S, String P) {

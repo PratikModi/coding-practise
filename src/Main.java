@@ -10,6 +10,7 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        System.out.println((int)(Math.random()));
         System.out.println(100%10);
         /*System.out.println(LocalDateTime.of(LocalDate.now(), LocalTime.now()).compareTo(LocalDateTime.of(LocalDate.now(),LocalTime.now().minusSeconds(10))));
         TreeSet<Integer> S = new TreeSet<>();
