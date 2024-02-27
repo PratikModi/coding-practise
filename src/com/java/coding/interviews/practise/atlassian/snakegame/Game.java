@@ -77,7 +77,7 @@ public class Game {
         Cell initPosition = new Cell(0,0);
         Snake snake = new Snake(initPosition);
         Board board = new Board(10,10);
-        board.printBoard();
+        //board.printBoard();
         Game newGame = new Game(snake,board);
         newGame.isGameOver=false;
         newGame.direction = RIGHT_DIRECTION;
@@ -90,7 +90,7 @@ public class Game {
             newGame.update();
             System.out.println(snake.getSnakeBody().size());
             if (i == 3)
-                newGame.direction = RIGHT_DIRECTION;
+                newGame.direction = DOWN_DIRECTION;
             if (newGame.isGameOver())
                 break;
         }
