@@ -4,6 +4,7 @@ public class Game {
 
     /**
      * Questions: -
+     * ----------
      * 1. Is it same mobile Snake game?
      * 2. Do we need to generate food on randomly?
      * 3. Is it on fixed board size like mobile screen?
