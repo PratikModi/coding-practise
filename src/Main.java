@@ -10,8 +10,11 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        System.out.println((int)(Math.random()));
-        System.out.println(100%10);
+        //System.out.println((int)(Math.random()));
+        System.out.println(0%3);
+        System.out.println(1%3);
+        System.out.println(2%3);
+        System.out.println(3%3);
         /*System.out.println(LocalDateTime.of(LocalDate.now(), LocalTime.now()).compareTo(LocalDateTime.of(LocalDate.now(),LocalTime.now().minusSeconds(10))));
         TreeSet<Integer> S = new TreeSet<>();
         S.add(10);
