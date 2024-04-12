@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         //System.out.println((int)(Math.random()));
-        System.out.println(0%3);
+        System.out.println(474880849%(1e9+7));
         System.out.println(1%3);
         System.out.println(2%3);
         System.out.println(3%3);
