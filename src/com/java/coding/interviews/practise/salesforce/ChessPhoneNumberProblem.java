@@ -1,6 +1,5 @@
 package com.java.coding.interviews.practise.salesforce;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -47,12 +46,14 @@ public class ChessPhoneNumberProblem {
     private static int[][] cache = new int[5001][10];
     public static void main(String[] args) {
         var nextNumbers = IntStream.range(0,10).boxed().collect(Collectors.toList());
-        var count = findPhoneNumbers(3131, nextNumbers);
+        //var count = findPhoneNumbers(3131, nextNumbers);
+        //System.out.println(count);
+        var count = findPhoneNumbers(7, nextNumbers);
         System.out.println(count);
     }
 
     public static int findPhoneNumbers(int n, List<Integer> nextNumbers){
-        //System.out.println(nextNumbers);
+        System.out.println(n);
         if(n==1) return nextNumbers.size();
         int count=0;
         for(int nextNum : nextNumbers){
