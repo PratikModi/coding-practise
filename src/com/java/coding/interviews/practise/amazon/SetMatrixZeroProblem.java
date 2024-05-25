@@ -23,8 +23,39 @@ public class SetMatrixZeroProblem {
         int[][] matrix= {{1,1,1},{1,0,1},{1,1,1}};
         Arrays.stream(matrix).forEach(e-> System.out.println(Arrays.toString(e)));
         System.out.println("==============================================");
-        setMatrixToZero(matrix);
+        setMatrixToZero2(matrix);
         Arrays.stream(matrix).forEach(e-> System.out.println(Arrays.toString(e)));
+    }
+
+
+    public static void setMatrixToZero2(int[][] matrix){
+        if(matrix==null || matrix.length==0 || matrix[0].length==0)
+            return;
+        int row = matrix.length;
+        int col = matrix[0].length;
+        boolean[][] isOriginalZero = new boolean[row][col];
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                if(matrix[i][j]==0){
+                    isOriginalZero[i][j]=true;
+                }
+            }
+        }
+
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+                int currentRow = i;
+                int currentCol = j;
+                if(matrix[currentRow][currentCol]==0 && isOriginalZero[currentRow][currentCol]){
+                    for(int c=0;c<col;c++){
+                        matrix[currentRow][c]=0;
+                    }
+                    for(int r=0;r<row;r++){
+                        matrix[r][currentCol]=0;
+                    }
+                }
+            }
+        }
     }
 
     public static void setMatrixToZero(int[][] matrix){
@@ -44,7 +75,7 @@ public class SetMatrixZeroProblem {
                 }
             }
         }
-        Arrays.stream(matrix).forEach(e-> System.out.println(Arrays.toString(e)));
+        //Arrays.stream(matrix).forEach(e-> System.out.println(Arrays.toString(e)));
         System.out.println("==============================================");
         for(int i=1;i<matrix.length;i++){
             for (int j=1;j<matrix[i].length;j++){
