@@ -1,7 +1,5 @@
 package com.java.coding.interviews.practise.google;
 
-import java.util.Arrays;
-
 /**
  * Given A, B, C, find whether C is formed by the interleaving of A and B.
  *
@@ -38,41 +36,35 @@ public class StringInterleavingProblem {
         String B = "dbbca";
         String C = "aadbbcbcac";
         System.out.println(isInterleave(A,B,C));
-        System.out.println(isInterleaveDP( A,B,C));
-        System.out.println(isInterleaveDP( "aabc","abad","aabadabc"));
+        //System.out.println(isInterleaveDP( A,B,C));
+        //System.out.println(isInterleaveDP( "aabc","abad","aabadabc"));
+    }
+    //Time Complexity:: O(N*M)
+    //Space Complexity:: O(N*M)
+    public static boolean isInterleave(String A, String B, String C){
+        int n1=A.length();
+        int n2=B.length();
+        int n3=C.length();
+        if(n1+n2!=n3) return false;
+        Boolean[][] memo = new Boolean[n1+1][n2+1];
+        return isInterleave(A,B,C,0,0,0,memo);
     }
 
-    public static boolean isInterleave(String A, String B, String C) {
-        int i = 0, j = 0, k = 0;
-
-        // Iterate through all characters of C.
-        while (k != C.length())
-        {
-            // Match first character of C with first character
-            // of A. If matches them move A to next
-            if (i<A.length()&&A.charAt(i) == C.charAt(k))
-                i++;
-
-                // Else Match first character of C with first
-                // character of B. If matches them move B to next
-            else if (j<B.length()&&B.charAt(j) == C.charAt(k))
-                j++;
-
-                // If doesn't match with either A or B, then return
-                // false
-            else
-                return false;
-
-            // Move C to next for next iteration
-            k++;
+    private static boolean isInterleave(String A, String B, String C, int i, int j, int k, Boolean[][] memo) {
+        if(k==C.length()) return true;
+        if(memo[i][j]!=null){
+            return memo[i][j];
         }
-
-        // If A or B still have some characters,
-        // then length of C is smaller than sum
-        // of lengths of A and B, so return false
-        if (i < A.length() || j < B.length())
-            return false;
-        return true;
+        boolean res=false;
+        if(i<A.length()&&j<B.length()&&A.charAt(i)==C.charAt(k)&&B.charAt(j)==C.charAt(k)){
+            res=isInterleave(A,B,C,i+1,j,k+1,memo) || isInterleave(A,B,C,i,j+1,k+1,memo);
+        }else if(i<A.length()&&A.charAt(i)==C.charAt(k)){
+            res=isInterleave(A,B,C,i+1,j,k+1,memo);
+        }else if(j<B.length()&&B.charAt(j)==C.charAt(k)){
+            res=isInterleave(A,B,C,i,j+1,k+1,memo);
+        }
+        memo[i][j]=res;
+        return res;
     }
 
     public static boolean isInterleaveDP(String A,String B, String C){
