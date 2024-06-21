@@ -32,4 +32,10 @@ public class CircuitBreaker {
     public void moveToClosedState(){
         this.breakerStateInterface = new BreakerClosedState(this);
     }
+
+    public boolean isSlowCall(long duration){
+        if(circuitBreakerConfig.getSlowCallRateDurationThresholdCount()<=duration)
+            return true;
+        return false;
+    }
 }
