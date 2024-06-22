@@ -8,6 +8,8 @@ public class MeetingRoomProblem {
     public static void main(String[] args) {
         int[][] intervals = {{2,15},{36,45},{9,29},{16,23},{4,9}};
         System.out.println(findTotalMeetingRoomsRequired(intervals));
+        intervals = new int[][]{{1,2},{3,4}};
+        System.out.println(findTotalMeetingRoomsRequired(intervals));
     }
 
     public static int findTotalMeetingRoomsRequired(int[][] meetings){
@@ -19,7 +21,7 @@ public class MeetingRoomProblem {
         for(int i=1;i<meetings.length;i++){
             int[] current = meetings[i];
             int[] earliestEnding = pq.remove();
-            if(earliestEnding[1]>current[0]){
+            if(current[0]>=earliestEnding[1]){
                 earliestEnding[1] = Math.max(current[1],earliestEnding[1]);
             }else{
                 pq.add(current);
