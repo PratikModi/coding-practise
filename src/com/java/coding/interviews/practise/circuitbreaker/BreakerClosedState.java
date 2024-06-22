@@ -1,7 +1,5 @@
 package com.java.coding.interviews.practise.circuitbreaker;
 
-import java.time.LocalDateTime;
-
 public class BreakerClosedState implements BreakerStateInterface{
 
     private final CircuitBreaker circuitBreaker;
