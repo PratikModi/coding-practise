@@ -33,8 +33,25 @@ public class CircuitBreaker {
         this.breakerStateInterface = new BreakerClosedState(this);
     }
 
+    public void moveToOpenState(){
+        this.breakerStateInterface=new BreakerOpenState(this);
+    }
+
+    public void moveToHalfOpenState(){
+        this.breakerStateInterface=new BreakerHalfOpenState(this);
+    }
+
     public boolean isSlowCall(long duration){
         if(circuitBreakerConfig.getSlowCallRateDurationThresholdCount()<=duration)
+            return true;
+        return false;
+    }
+
+    public boolean isExceedFailureOrSlowCallThreshold(CountStats countStats){
+        countStats.calculateRates();
+        if(circuitBreakerConfig.getFailureRateThreshold()<=countStats.failureRate)
+            return true;
+        if(circuitBreakerConfig.getSlowCallRateThresholdCount()<=countStats.slowCallRate)
             return true;
         return false;
     }

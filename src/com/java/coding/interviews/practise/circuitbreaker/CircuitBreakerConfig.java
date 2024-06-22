@@ -9,6 +9,7 @@ public class CircuitBreakerConfig {
     private static final int SLIDING_WINDOW_SIZE_DEFAULT=100;
     private static final long WAIT_DURATION_IN_OPEN_STATE_DEFAULT=60000;
     private static final long MAX_DURATION_IN_HALF_OPEN_STATE_DEFAULT=120000;
+    private static final int MINIMUM_NUMBER_OF_CALLS = 10;
 
     private float failureRateThreshold = FAILURE_RATE_THRESHOLD_COUNT;
     private float slowCallRateThresholdCount=SLOW_CALL_RATE_THRESHOLD_COUNT;
@@ -17,6 +18,7 @@ public class CircuitBreakerConfig {
     private int slidingWindowSize=SLIDING_WINDOW_SIZE_DEFAULT;
     private long waitDurationInOpenStateDefault=WAIT_DURATION_IN_OPEN_STATE_DEFAULT;
     private long maxDurationInHalfOpenStateDefault =MAX_DURATION_IN_HALF_OPEN_STATE_DEFAULT;
+    private int minimumNumberOfCalls = MINIMUM_NUMBER_OF_CALLS;
 
     public CircuitBreakerConfig() {
     }
@@ -25,10 +27,12 @@ public class CircuitBreakerConfig {
         CircuitBreakerConfig clone = new CircuitBreakerConfig();
         clone.setFailureRateThreshold(failureRateThreshold);
         clone.setSlowCallRateThresholdCount(slowCallRateThresholdCount);
+        clone.setSlowCallRateDurationThresholdCount(slowCallRateDurationThresholdCount);
         clone.setPermittedNumberOfCallsInHalfOpenState(permittedNumberOfCallsInHalfOpenState);
         clone.setSlidingWindowSize(slidingWindowSize);
         clone.setWaitDurationInOpenStateDefault(waitDurationInOpenStateDefault);
         clone.setMaxDurationInHalfOpenStateDefault(maxDurationInHalfOpenStateDefault);
+        clone.setMinimumNumberOfCalls(minimumNumberOfCalls);
         return clone;
     }
 
@@ -88,5 +92,11 @@ public class CircuitBreakerConfig {
         this.maxDurationInHalfOpenStateDefault = maxDurationInHalfOpenStateDefault;
     }
 
+    public int getMinimumNumberOfCalls() {
+        return minimumNumberOfCalls;
+    }
 
+    public void setMinimumNumberOfCalls(int minimumNumberOfCalls) {
+        this.minimumNumberOfCalls = minimumNumberOfCalls;
+    }
 }
