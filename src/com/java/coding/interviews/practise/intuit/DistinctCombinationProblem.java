@@ -33,7 +33,8 @@ public class DistinctCombinationProblem {
         int k=3;
         System.out.println(findCombinations(nums,k));
     }
-
+    //Time Complexity O(k^n)
+    //Space Complexity O(k^n)
     public static void util(int[] nums, int n, int k, int index, Set<List<Integer>> result, List<Integer> combination){
         if(k==0){
             result.add(new ArrayList<>(combination));
