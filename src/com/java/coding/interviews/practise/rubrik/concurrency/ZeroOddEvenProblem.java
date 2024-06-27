@@ -36,7 +36,7 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public class ZeroOddEvenProblem {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Semaphore zeroSemaphore = new Semaphore(1);
         Semaphore oddSemaphore = new Semaphore(0);
         Semaphore evenSemaphore = new Semaphore(0);
@@ -52,7 +52,8 @@ public class ZeroOddEvenProblem {
         t2.start();
         Thread t3 = new Thread(even);
         t3.start();
-        System.out.println("==="+SB.get().toString());
+        Thread.sleep(2000);
+        System.out.println(SB.get().toString());
 
 
     }
@@ -82,9 +83,9 @@ class Zero implements Runnable{
         try {
                 for(int i=0;i<bound;i++) {
                     zeroSemaphore.acquire();
-                    //System.out.println("ZERO");
-                    SB.get().append(0);
-                    System.out.print(0);
+                    SB.get().append(0+"");
+                    System.out.println(SB.get().toString());
+                    //System.out.print(0);
                     if(isOdd.get()==1) {
                         oddSemaphore.release(1);
                     }else{
@@ -123,8 +124,9 @@ class Odd implements Runnable{
                 for(int i=1;i<=bound;i+=2){
                     //System.out.println(oddSemaphore.availablePermits());
                     oddSemaphore.acquire();
-                    System.out.print(i);
-                    SB.get().append(i);
+                    //System.out.print(i);
+                    SB.get().append(i+"");
+                    System.out.println(SB.get().toString());
                     isOdd.set(0);
                     zeroSemaphore.release();
                 }
@@ -159,8 +161,9 @@ class Even implements Runnable{
         try{
                 for(int i=2;i<=bound;i+=2){
                     evenSemaphore.acquire();
-                    System.out.print(i);
-                    SB.get().append(i);
+                    //System.out.print(i);
+                    SB.get().append(i+"");
+                    System.out.println(SB.get().toString());
                     isOdd.set(1);
                     zeroSemaphore.release();
                 }
