@@ -15,10 +15,10 @@ public class ZeroOddEvenProblem {
         Odd odd = new Odd(zeroSemaphore,oddSemaphore,evenSemaphore,limit,isIdd);
         Even even = new Even(zeroSemaphore,oddSemaphore,evenSemaphore,limit,isIdd);
         Thread t1 = new Thread(zero);
-        Thread t2 = new Thread(odd);
-        Thread t3 = new Thread(even);
         t1.start();
+        Thread t2 = new Thread(odd);
         t2.start();
+        Thread t3 = new Thread(even);
         t3.start();
     }
 
@@ -43,7 +43,7 @@ class Zero implements Runnable{
     @Override
     public void run() {
         try {
-            for (int i = 2; i < limit; i++) {
+            for (int i = 0; i < limit; i++) {
                 zeroSemaphore.acquire();
                 System.out.print(0);
                 if(isOdd.get()==1){
@@ -108,7 +108,7 @@ class Even implements Runnable{
     @Override
     public void run() {
         try {
-            for(int i=0;i<limit;i+=2) {
+            for(int i=2;i<limit;i+=2) {
                 evenSemaphore.acquire();
                 System.out.print(i);
                 isOdd.set(1);
