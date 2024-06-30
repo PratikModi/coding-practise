@@ -65,5 +65,11 @@ public class CourseScheduleProblem {
     }
 
 
+    public static List<Integer> findCourseOrder2(int numCourses, int[][] prerequisites){
+        List<Integer> courseOrder = new ArrayList<>();
+
+        return courseOrder;
+    }
+
 
 }
