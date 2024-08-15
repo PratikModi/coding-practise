@@ -1,85 +1,98 @@
 package com.java.coding.interviews.practise.third.atlassian;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Questions
+ * =======
+ * 1. Can two candidates have same votes? if so which one to return.
+ * 2. Is name of candidate case-sensitive?
+ *
+ * Talking Points
+ * ==========
+ * 1. We will discuss multiple approach to solve the problem and including brute force in fact we will start with brute force only
+ * 2. We will pick the best approach in terms of time + space complexity, we will discuss the reason for it.
+ * 3. We will go over the working code and run the code to see if its working.
+ *
+ * Approach-1 Brute Force
+ * ==================
+ * 1. Create the Object named Candidate with attributed name and totalVotes
+ * 2. Iterate through the input array and create the List of Candidate object using along with Map<String, Candidate>
+ * 3. Take the list and sort the candidate list based on totalVotes.
+ * 4. This is not efficient as it takes O(N) + O(NlogN) = O(NLogN)
+ *
+ * Approach-2
+ * ========
+ * 1. we can use Map data structure to store total votes against each candidate::: Map<String,Integer>
+ * 2. Populate the Map with candidate and vote details -- O(N)
+ * 3. Again iterate over map to find the candidate with highest votes -- O(N)
+ * 4. O(N) + O(N) == O(N)
+ * 5. But this can cause the problem when given input is too large. Performance will hit when you have to iterate twice.
+ *
+ * Approach-3
+ * ========
+ * 1. This is very similar to Approach-2 only we will use the same Map Data Structure.
+ * 2. Difference is while populating the map itself we will keep maintaining the Highest voted candidate name.
+ * 3. Why this approach is efficient because we need to iterate over input only once.
+ * 4. Time Complexity : O(N)
+ */
 
 public class ElectionWinnerProblem {
 
-    public static String findWinner(List<String> votes){
-        if(votes==null || votes.isEmpty())
-            return "";
-        String winner="";
-        int highestVotes=0;
-        Map<String,Integer> votesPerCandidate = new HashMap<>();
-        for(String vote : votes){
-            votesPerCandidate.put(vote,votesPerCandidate.getOrDefault(vote,0)+1);
-            int voteCount = votesPerCandidate.get(vote);
-            if(voteCount>highestVotes || (voteCount==highestVotes && winner.compareTo(vote)>0)){
-                winner=vote;
-                highestVotes=voteCount;
-            }
-        }
-        System.out.println(votesPerCandidate);
-        return winner;
-    }
-
-    public static String findWinner2(List<List<String>> votes){
-        if(votes==null || votes.isEmpty())
-            return "";
-        String winner="";
-        int highestVotes=0;
-        Map<String,Map<Integer,Integer>> votesPerCandidate = new HashMap<>();
-        int maxVotesSize=0;
-        for(var voteList : votes){
-            int voteWeight = voteList.size();
-            maxVotesSize = Math.max(0,voteList.size());
-            for(int i=0;i<voteList.size();i++){
-                votesPerCandidate.putIfAbsent(voteList.get(i),new HashMap<>());
-                var voteMap = votesPerCandidate.get(voteList.get(i));
-                voteMap.put(i,voteMap.getOrDefault(i,0)+voteWeight);
-                votesPerCandidate.put(voteList.get(i),voteMap);
-                voteWeight--;
-            }
-        }
-        System.out.println(votesPerCandidate);
-        for(var entry : votesPerCandidate.entrySet()){
-            String candidate = entry.getKey();
-            int totalVotes = entry.getValue().values().stream().reduce((a,b)->a+b).get();
-            if(totalVotes>highestVotes){
-                winner=candidate;
-                highestVotes=totalVotes;
-            }else if(totalVotes==highestVotes){
-                var oldWinner = votesPerCandidate.get(winner);
-                var newWinner = votesPerCandidate.get(candidate);
-                for(int i=0;i<maxVotesSize;i++){
-                    int oldVotes = oldWinner.getOrDefault(i,0);
-                    int newVotes = newWinner.getOrDefault(i,0);
-                    if(newVotes>oldVotes){
-                        highestVotes=newVotes;
-                        winner=candidate;
-                    }
-                }
-
-            }
-        }
-        return winner;
-    }
-
     public static void main(String[] args) {
-        List<String> votes = List.of("john", "johnny", "jackie",
+        String[] votes = {"john", "johnny", "jackie",
                 "johnny", "john", "jackie",
                 "jamie", "jamie", "john",
                 "johnny", "jamie", "johnny",
-                "john");
-        System.out.println(findWinner(votes));
-
-        List<List<String>> votesList = new ArrayList<>();
-        List<String> vote1 = Arrays.asList("A","B","C");
-        List<String> vote2 = Arrays.asList("A","B","D");
-        List<String> vote3 = Arrays.asList("B","C","A");
-        votesList.add(vote1);
-        votesList.add(vote2);
-        votesList.add(vote3);
-        System.out.println(findWinner2(votesList));
+                "john"};
+        System.out.println(findElectionWinner1(votes));
+        System.out.println("==================");
+        System.out.println(findElectionWinner2(votes));
     }
+
+    public static String findElectionWinner1(String[] votes){
+        if(votes==null || votes.length==0)
+            return "";
+        Map<String,Integer> voteMap = new HashMap<>();
+        for(String vote : votes){
+            voteMap.putIfAbsent(vote,0);
+            voteMap.put(vote,voteMap.get(vote)+1);
+        }
+        System.out.println(voteMap);
+        String winner="";
+        Integer highestVotesSoFar=0;
+        for(var entry : voteMap.entrySet()){
+            if(entry.getValue()>=highestVotesSoFar){
+                if(entry.getValue()>highestVotesSoFar || (entry.getValue()==highestVotesSoFar && winner.compareTo(entry.getKey())>0)){
+                    highestVotesSoFar=entry.getValue();
+                    winner=entry.getKey();
+                }
+            }
+        }
+        return winner;
+    }
+
+
+    public static String findElectionWinner2(String[] votes){
+        if(votes==null || votes.length==0)
+            return "";
+        Map<String,Integer> voteMap = new HashMap<>();
+        String winner="";
+        Integer highestVoteSoFar=0;
+        for(String vote : votes){
+            voteMap.putIfAbsent(vote,0);
+            voteMap.put(vote,voteMap.get(vote)+1);
+            Integer totalCandidateVotes = voteMap.get(vote);
+            if(totalCandidateVotes>=highestVoteSoFar){
+                if(totalCandidateVotes>highestVoteSoFar || (totalCandidateVotes==highestVoteSoFar && winner.compareTo(vote)>0)){
+                    winner=vote;
+                    highestVoteSoFar = totalCandidateVotes;
+                }
+            }
+        }
+        return winner;
+    }
+
 
 }
