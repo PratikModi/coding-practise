@@ -49,6 +49,11 @@ public class ElectionWinnerProblem {
         System.out.println(findElectionWinner1(votes));
         System.out.println("==================");
         System.out.println(findElectionWinner2(votes));
+        System.out.println("==================");
+        String[][] votes_multi = new String[][]{
+                {"A","B","C"},{"B","C","A"},{"C","A","B"}
+        };
+        System.out.println(findElectionWinnerWithDifferentStrategy1(votes_multi));
     }
 
     public static String findElectionWinner1(String[] votes){
@@ -93,6 +98,32 @@ public class ElectionWinnerProblem {
         }
         return winner;
     }
+
+    public static String findElectionWinnerWithDifferentStrategy1(String[][] votes){
+        if(votes==null || votes.length==0)
+            return "";
+        Map<String,Integer> voteMap = new HashMap<>();
+        String winner="";
+        Integer highestVoteSoFar=0;
+        for(int i=0;i<votes.length;i++){
+            for(int j=0;j<votes[i].length;j++){
+                int weight = votes[i].length-j;
+                String vote = votes[i][j];
+                voteMap.putIfAbsent(vote,0);
+                voteMap.put(vote,voteMap.get(vote)+weight);
+                int candidateVote = voteMap.get(vote);
+                if(candidateVote>=highestVoteSoFar){
+                    if(candidateVote>highestVoteSoFar || (candidateVote==highestVoteSoFar && winner.compareTo(vote)>0)){
+                        winner=vote;
+                        highestVoteSoFar=candidateVote;
+                    }
+                }
+            }
+        }
+        System.out.println(voteMap);
+        return winner;
+    }
+
 
 
 }
