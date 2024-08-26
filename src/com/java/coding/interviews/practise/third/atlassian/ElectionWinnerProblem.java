@@ -26,7 +26,7 @@ import java.util.Map;
  * ========
  * 1. we can use Map data structure to store total votes against each candidate::: Map<String,Integer>
  * 2. Populate the Map with candidate and vote details -- O(N)
- * 3. Again iterate over map to find the candidate with highest votes -- O(N)
+ * 3. Again iterate over map to find the candidate with the highest votes -- O(N)
  * 4. O(N) + O(N) == O(N)
  * 5. But this can cause the problem when given input is too large. Performance will hit when you have to iterate twice.
  *
@@ -36,6 +36,11 @@ import java.util.Map;
  * 2. Difference is while populating the map itself we will keep maintaining the Highest voted candidate name.
  * 3. Why this approach is efficient because we need to iterate over input only once.
  * 4. Time Complexity : O(N)
+ *
+ *
+ *  Why HashMap?
+ *  ==========
+ *  1. HashMap gives you O(1) time look uptime it makes performance efficient.
  */
 
 public class ElectionWinnerProblem {
