@@ -135,7 +135,7 @@ public class SlidingWindowRateLimiter implements IRateLimiter {
             else{
                 Long windowTime = reqTime - timeUnit.toMillis(time);
                 requestTimes.removeIf(t->t<windowTime);
-                if(requestTimes.size()<=limit)
+                if(requestTimes.size()<=limit) // This can be ignored by putting TTL so that it will always have required entries
                     return true;
             }
         }
