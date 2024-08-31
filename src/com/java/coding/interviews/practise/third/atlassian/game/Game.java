@@ -25,11 +25,24 @@ package com.java.coding.interviews.practise.third.atlassian.game;
  *                     -- each Cell will have a position in terms of row and column
  *                     -- each Cell will also have a type like it's EMPTY,SNAKE,FOOD
  *                     CellType -- this is enum that represents different types of Cell.
+ *               Board Function:-
+ *               ===========
+ *               initiate() -- This will initiate the board.
+ *               generateFood() -- This will generate food on random cells.
  *       Snake -- This object will represent Snake of the game.
  *                --  Snake can have a body which can be represented as LinkedList of Cell
  *                -- Snake can also have a head which is again Cell. This head will be used to find the next cell while moving the cell in any given direction.
+ *                Snake Functions:-
+ *                =============
+ *                move(Cell nextCell) -- moves the snake to next position.
+ *                checkIfCrash(Cell nextCell) -- check if Snake is crashing.
  *       Direction -- we can represent the direction with Enum LEFT/RIGHT/UP/DOWN
  *       Boolean -- this will be boolean attribute that will indicate if game is over or not.
+ *       Game Functions:-
+ *       ============
+ *        update() -- Update game based on next cell based on direction. It will initiate snake move to next cell also checks if snake is clashing.
+ *        nextCell(Cell current) -- Based on direction it gives next cell on the board where Snake can move.
+ *        start() -- this will initiate the Game object so that game can be started.
  *
  */
 public class Game {
