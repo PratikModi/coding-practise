@@ -21,6 +21,21 @@ public class Board {
         }
     }
 
+    public void generateFood(){
+        int row=0,column=0;
+        while(true){
+            row= (int)(Math.random()*rowCount);
+            column=(int)(Math.random()*columnCount);
+            if(cells[row][column].getCellType()!=CellType.SNAKE)
+                break;
+        }
+        cells[row][column].setCellType(CellType.FOOD);
+    }
+
+    public boolean isCrashingOnBoundary(int row, int col){
+        return row<0 || row>=rowCount || col<0 || col>=columnCount;
+    }
+
     public Cell[][] getCells() {
         return cells;
     }

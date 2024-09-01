@@ -47,4 +47,57 @@ package com.java.coding.interviews.practise.third.atlassian.game;
  */
 public class Game {
 
+    private Board board;
+    private Snake snake;
+    private Direction direction;
+    private boolean isGameOver;
+
+    public Game(Board board, Snake snake) {
+        this.board = board;
+        this.snake = snake;
+        this.direction = Direction.NO_DIRECTION;
+    }
+
+    public void update(){
+        if(!isGameOver){
+            if(direction!=Direction.NO_DIRECTION){
+                Cell nextCell = getNextCell(snake.getHead());
+                if(nextCell!=null){
+                    CellType cellType = nextCell.getCellType();
+                    if(!snake.checkIfCrash(nextCell)){
+                        snake.move(nextCell);
+                        if(cellType.equals(CellType.FOOD))
+                            snake.grow();
+                        nextCell.setCellType(CellType.SNAKE);
+                    }else{
+                        isGameOver=true;
+                        direction=Direction.NO_DIRECTION;
+                    }
+                }else{
+                    isGameOver=true;
+                    direction=Direction.NO_DIRECTION;
+                }
+            }
+        }
+    }
+
+    private Cell getNextCell(Cell current){
+        int row = current.getRow();
+        int col = current.getColumn();
+        if(direction==Direction.LEFT){
+            col--;
+        }else if(direction==Direction.RIGHT){
+            col++;
+        }else if(direction==Direction.UP){
+            row--;
+        }else if(direction==Direction.DOWN){
+            row++;
+        }
+        if(!board.isCrashingOnBoundary(row,col)){
+            return board.getCells()[row][col];
+        }
+        return null;
+    }
+
+
 }

@@ -22,7 +22,7 @@ public class Board {
         int row=0, column=0;
         while(true){
             row = (int)(Math.random()*rowCount);
-            column = (int)(Math.random()*column);
+            column = (int)(Math.random()*columnCount);
             if(board[row][column].getCellType()!=CellType.SNAKE)
                 break;
         }

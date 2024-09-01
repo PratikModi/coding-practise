@@ -32,6 +32,10 @@ public class Snake {
         return snakeBodySet.contains(nextCell);
     }
 
+    public void grow(){
+        snakeBody.add(head);
+    }
+
     public Cell getHead() {
         return head;
     }
