@@ -39,7 +39,7 @@ import java.util.function.Supplier;
  *
  *    Cons:-
  *    -----
- *    1. Since it takes two parameters, it might not be tune them properly.
+ *    1. Since it takes two parameters, it might not be easy to tune them properly.
  *
  * 2. Leaky Bucket:-
  *    -------------
@@ -56,7 +56,7 @@ import java.util.function.Supplier;
  *
  *    Cons:-
  *    -----
- *    1. Since it takes two parameters, it might not be tune them properly.
+ *    1. Since it takes two parameters, it might not be easy to tune them properly.
  *
  * 3. Fixed Window:-
  *    -------------
