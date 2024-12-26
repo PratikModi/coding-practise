@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class Snake {
     private Cell head;
-    private List<Cell> snakeBody;
+    private LinkedList<Cell> snakeBody;
     private Set<Cell> snakeBodySet;
 
     public Snake(Cell initPos) {
@@ -48,7 +48,7 @@ public class Snake {
         return snakeBody;
     }
 
-    public void setSnakeBody(List<Cell> snakeBody) {
+    public void setSnakeBody(LinkedList<Cell> snakeBody) {
         this.snakeBody = snakeBody;
     }
 }
