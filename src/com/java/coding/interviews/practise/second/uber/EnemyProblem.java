@@ -9,7 +9,57 @@ public class EnemyProblem {
         List<int[]> enemies = List.of(new int[]{1,4}, new int[]{1,5});
         List<Boolean> result = findNodeResult(edges,enemies);
         System.out.println(result);
+        result = canConnect(edges,enemies,6);
+        System.out.println(result);
     }
+
+    public static List<Boolean> canConnect(List<int[]> edges, List<int[]> enemies, int nodes){
+        List<Boolean> result = new ArrayList<>();
+        if(edges==null || enemies==null || edges.size()==0 || enemies.size()==0)
+            return result;
+        int[] parent = new int[nodes];
+        for(int i=0;i<nodes;i++){
+            parent[i]=i;
+        }
+
+        for(int[] edge : edges){
+            addEdge(edge[0],edge[1],parent);
+            result.add(true);
+            for(int[] enemy : enemies){
+                if(areInSameGroup(enemy[0],enemy[1],parent))
+                    result.set(result.size()-1,false);
+            }
+        }
+        return result;
+    }
+
+    private static void addEdge(int p, int q, int[] parent){
+        union(p,q,parent);
+    }
+
+    private static void union(int p, int q, int[] parent){
+        int parentP = findParent(p, parent);
+        int parentQ = findParent(q, parent);
+        if(parentP<parentQ)
+            parent[q]=parentP;
+        else
+            parent[p]=parentQ;
+    }
+
+    private static boolean areInSameGroup(int p, int q, int[] parent){
+        int parentP = findParent(p, parent);
+        int parentQ = findParent(q, parent);
+
+        return parentP==parentQ;
+    }
+
+    private static int findParent(int p, int[] parent){
+        if(parent[p]==p)
+            return p;
+        parent[p] = findParent(parent[p],parent);
+        return parent[p];
+    }
+
 
     public static List<Boolean> findNodeResult(List<int[]> edges, List<int[]> enemies){
         Map<Integer,Set<Integer>> graph = new HashMap<>();
