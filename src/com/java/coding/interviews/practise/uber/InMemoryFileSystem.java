@@ -82,7 +82,7 @@ public class InMemoryFileSystem {
             paths.add(temp.name);
             temp = temp.parent;
         }
-        Collections.sort(paths);
+        Collections.reverse(paths);
         System.out.println("/" + String.join("/", paths));
     }
 
