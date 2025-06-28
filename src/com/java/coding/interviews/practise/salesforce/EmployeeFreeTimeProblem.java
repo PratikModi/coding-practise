@@ -18,12 +18,12 @@ public class EmployeeFreeTimeProblem {
             flatIntervals.add(new Interval(convert(splits[2]),convert(splits[3])));
         }
         flatIntervals.add(new Interval(LocalTime.of(23,59),LocalTime.of(23,59)));
-        Collections.sort(flatIntervals,(a,b)->a.startTime.compareTo(b.startTime));
+        flatIntervals.sort((a, b) -> a.startTime.compareTo(b.startTime));
         List<Interval> merged = mergeIntervals(flatIntervals);
         Interval previous = new Interval(LocalTime.of(0,0),LocalTime.of(0,0));
         for(var interval : merged){
             if(Duration.between(previous.endTime,interval.startTime).toMinutes()>=k){
-                return previous.endTime.plusMinutes(1).format(DateTimeFormatter.ofPattern("HH:mm")).toString();
+                return previous.endTime.plusMinutes(1).format(DateTimeFormatter.ofPattern("HH:mm"));
             }else{
                 previous=interval;
             }
