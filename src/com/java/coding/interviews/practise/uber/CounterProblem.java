@@ -55,7 +55,6 @@ public class CounterProblem {
         Thread.sleep(1000);
         System.out.println(counter.totalCount());
         System.out.println(counter.get("a"));
-
     }
 
     public void put(String value){
