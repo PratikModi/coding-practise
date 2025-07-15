@@ -2,6 +2,20 @@ package com.java.coding.interviews.practise.atlassian;
 
 import java.util.List;
 
+/**
+ * ✅ Java Solution
+ *
+ * We’ll implement a simple route matcher using:
+ * 	•	Splitting by /
+ * 	•	Matching segments
+ * 	•	Using {} to represent variables
+ *
+ * 	🧠 Time & Space Complexity
+ * 	•	Time: O(N * L) where:
+ * 	•	N = number of routes
+ * 	•	L = average number of path segments
+ * 	•	Space: O(1) extra per call
+ */
 public class MiddlewareRouterProblem {
 
     public static void main(String[] args) {
