@@ -13,7 +13,7 @@ import java.util.*;
  * given a target set of employees in the organization.
  * Time Complexity: O(N) -- build Group -- N is the number of Groups
  *                            O(D) -- getAncesstor -- D is average length
- *                            O(k*D) -- LCA -- K Number of employee in query
+ *                            O(k*D) -- LCA -- K Number of employee in the query
  *
  *   Questions: -
  *   1. What defines a “group”?
@@ -41,7 +41,7 @@ import java.util.*;
  * 	•	Easier to extend (e.g., multi-tenant orgs, dynamic trees)
  *
  * 	Approach: 2
- * 	1. Build a tree structure for the group hierarchy
+ * 	1. Build a tree structure for group hierarchy
  * 	2.	For each employee, map them to their group
  * 	3.	Find the lowest common ancestor of their groups in the tree
  * 	Why Not this approach:
