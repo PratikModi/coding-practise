@@ -66,7 +66,11 @@ public class CommodityPriceProblem {
         return lastEntry==null?0:lastEntry.getValue();
     }
 
-
+    public Double latestPrice(String commodityName){
+        if(!data.containsKey(commodityName)) return null;
+        PriceData priceData = data.get(commodityName);
+        return priceData.priceMap.lastEntry().getValue();
+    }
 
     public void updatePrice(String commodity, int timestamp, double price){
         priceMap.putIfAbsent(commodity, new TreeMap<>());
@@ -99,5 +103,6 @@ public class CommodityPriceProblem {
 
         System.out.println("Gold price at time 4: " + tracker.getPriceAt("Gold", 4)); // 120
         System.out.println("Average Gold price between 2 and 6: " + tracker.getAveragePrice("Gold", 2, 6));
+        System.out.println("Gold Latest Price:" + tracker.latestPrice("Gold"));
     }
 }
