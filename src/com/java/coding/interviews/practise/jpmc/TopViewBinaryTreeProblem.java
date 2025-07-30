@@ -15,7 +15,7 @@ public class TopViewBinaryTreeProblem {
         root.left.right = new BinaryTreeNode(5);
         topView(root);
     }
-
+    //HD Horizontal Distance
     public static void topView(BinaryTreeNode root){
         if(root==null)
             return;
