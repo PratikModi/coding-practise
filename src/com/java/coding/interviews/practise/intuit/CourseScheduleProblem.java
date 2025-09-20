@@ -28,11 +28,9 @@ public class CourseScheduleProblem {
         System.out.println(adjMatrix);
         System.out.println(visited);
         Set<Integer> set = adjMatrix.keySet();
-        Iterator<Integer> iterator = set.iterator();
-        while(iterator.hasNext()){
-            int course = iterator.next();
-            if(visited.get(course)==UNPROCESSED){
-                if(isCyclic(adjMatrix,courseOrder,course,visited)){
+        for (int course : set) {
+            if (visited.get(course) == UNPROCESSED) {
+                if (isCyclic(adjMatrix, courseOrder, course, visited)) {
                     System.out.println("CYCLIC");
                     return courseOrder;
                 }
