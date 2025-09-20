@@ -119,7 +119,7 @@ class Snake{
     }
 }
 
-public class SnakeGame{
+public class   SnakeGame{
 
      private Board board;
      private Snake snake;

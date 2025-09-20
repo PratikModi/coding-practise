@@ -107,7 +107,7 @@ public class EmployeeCommonGroupProblem {
             if(empGroup == null) return null;
             paths.add(getAncestors(empGroup));
         }
-        List<Group> firstPath = paths.getFirst();
+        List<Group> firstPath = paths.get(0);
         Set<Group> commonSet = new HashSet<>(firstPath);
         for(int i=1;i<paths.size();i++){
             commonSet.retainAll(paths.get(i));
