@@ -7,6 +7,7 @@ public class SubArraySumKProblem {
 
     public static void main(String[] args) {
         System.out.println(countSubArray(new int[]{10,2,-2,-10,-20,10},-10));
+        System.out.println(countSubArray(new int[]{1,2,1,2,1},3));
     }
 
     public static int countSubArray(int[] A, int S){
@@ -25,6 +26,7 @@ public class SubArraySumKProblem {
             }
             previous_sum.putIfAbsent(current_sum,0);
             previous_sum.put(current_sum,previous_sum.get(current_sum)+1);
+            System.out.println(previous_sum);
         }
         return result;
     }

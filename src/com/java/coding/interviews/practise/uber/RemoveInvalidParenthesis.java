@@ -23,6 +23,9 @@ import java.util.*;
  * Input: ")("
  * Output: [""]
  */
+
+//Time Complexity: O(2^n)
+    //Space Complexity: (n*2^n) as we are storing visited as well.
 public class RemoveInvalidParenthesis {
     public static void main(String[] args) {
         System.out.println(removeInvalidParenthesis("()())()"));
