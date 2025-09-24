@@ -43,6 +43,7 @@ public class VerticalOrderBinaryTreeProblem {
         root.right.right.right = new TreeNode(9);
 
         System.out.println(verticalTraversal(root));
+        System.out.println(verticalTraversalDFS(root));
 
     }
 
@@ -78,4 +79,41 @@ public class VerticalOrderBinaryTreeProblem {
         }
         return result;
     }
+
+    /**
+     * ⏱️ Complexity
+     * 	•	DFS traversal: O(n)
+     * 	•	Sorting: O(n log n)
+     * 	•	Grouping: O(n)
+     * 	•	Total: O(n log n)
+     * 	•	Space: O(n) (list of nodes + recursion stack).
+     */
+    public static List<List<Integer>> verticalTraversalDFS(TreeNode root){
+        List<int[]> nodes = new ArrayList<>();
+        dfs(root,0,0,nodes);
+        Collections.sort(nodes,(a,b)->{
+            if(a[0]!=b[0]) return Integer.compare(a[0],b[0]);
+            if(a[1]!=b[1]) return Integer.compare(a[1],b[1]);
+            return Integer.compare(a[2],b[2]);
+        });
+        List<List<Integer>> result = new ArrayList<>();
+        int previous=Integer.MIN_VALUE;
+        for(int[] node : nodes){
+            int col = node[0], value = node[2];
+            if(previous!=col){
+                result.add(new ArrayList<>());
+                previous=col;
+            }
+            result.get(result.size()-1).add(value);
+        }
+        return result;
+    }
+
+    private static void dfs(TreeNode node, int row, int col, List<int[]> nodes){
+        if(node==null) return;
+        nodes.add(new int[]{col,row,node.value});
+        dfs(node.left,row+1,col-1,nodes);
+        dfs(node.right,row+1,col+1,nodes);
+    }
+
 }
