@@ -55,6 +55,8 @@ public class TaskSchedulerProblem {
         int n=2;
         int result = taskScheduler(tasks,n);
         System.out.println(result);
+        result = taskSchedulerMathematical(tasks,n);
+        System.out.println(result);
     }
 
     private static int taskScheduler(char[] tasks, int n){
@@ -72,6 +74,8 @@ public class TaskSchedulerProblem {
         while(!PQ.isEmpty()){
             int times=0;
             List<Integer> pendingTasks = new ArrayList<>();
+            	//•	Why n+1?
+               //→ Because if cooldown = n, then two same tasks must be at least n+1 apart.
             for(int i=0;i<n+1;i++){
                 if(!PQ.isEmpty()){
                     pendingTasks.add(PQ.remove()-1);
@@ -88,4 +92,27 @@ public class TaskSchedulerProblem {
         }
         return result;
     }
+
+    private static int taskSchedulerMathematical(char[] tasks, int n){
+        if(tasks==null || tasks.length==0)
+            return 0;
+        int[] freq = new int[26];
+        for(char task : tasks){
+            freq[task - 'A']++;
+        }
+        Arrays.sort(freq);
+        // [A,A,A] n=2
+        //A _ _ A _ _ A -- 2 chunks between most frequent task
+        int chunks = freq[25-1];
+        // idle time is chunk * cooldown period
+        int idle = chunks * n;
+
+        for(int i=24;i>=0;i--){
+            //We can place other tasks in between chunks
+            idle -= Math.min(chunks,freq[i]);
+        }
+        return idle<0?tasks.length:tasks.length+idle;
+
+    }
+
 }
