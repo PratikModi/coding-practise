@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -11,6 +12,8 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         System.out.println((int)(Math.random()*5));
+
+        System.out.println(Arrays.toString("%A%_%B%_%C%".split("%")));
 
         /*System.out.println(LocalDateTime.of(LocalDate.now(), LocalTime.now()).compareTo(LocalDateTime.of(LocalDate.now(),LocalTime.now().minusSeconds(10))));
         TreeSet<Integer> S = new TreeSet<>();
