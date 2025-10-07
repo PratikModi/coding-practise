@@ -26,7 +26,7 @@ public class LinedListRandomPointerProblem {
         System.out.println(copyLinkedListWithRandomPointersConstantSpace(head));
     }
 
-    public static LinkedListNode copyLinkedListWithRandomPointers(LinkedListNode head){
+    public static LinkedListNode    copyLinkedListWithRandomPointers(LinkedListNode head){
         if(head==null){
             return null;
         }
@@ -65,8 +65,8 @@ public class LinedListRandomPointerProblem {
         while (current!=null){
             if(current.random!=null){
                 current.next.random = current.random.next;
-                current = current.next.next;
             }
+            current = current.next.next;
         }
         current=head;
         LinkedListNode dummy = new LinkedListNode(0);

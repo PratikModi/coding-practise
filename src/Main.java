@@ -12,6 +12,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World!");
         System.out.println((int)(Math.random()*5));
+        System.out.println((7-1)/6);
 
         System.out.println(Arrays.toString("%A%_%B%_%C%".split("%")));
 

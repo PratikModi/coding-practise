@@ -14,7 +14,7 @@ import java.util.*;
 
  [[2,4],[1,3],[2,4],[1,3]]
 **/
-public class CloneGraphProblem {
+public class    CloneGraphProblem {
     public static void main(String[] args) {
         Node node1 = new Node(1);
         Node node2 = new Node(2);
