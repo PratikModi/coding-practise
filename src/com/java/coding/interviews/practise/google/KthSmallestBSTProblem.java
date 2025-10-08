@@ -17,6 +17,7 @@ package com.java.coding.interviews.practise.google;
  * Output: 3
  */
 public class KthSmallestBSTProblem {
+    static int count=0, ans=-1;
 
     public static void main(String[] args) {
         BSTreeNode root = new BSTreeNode(5);
@@ -27,13 +28,19 @@ public class KthSmallestBSTProblem {
         root.left.right = new BSTreeNode(4);
         int result = findKthSmallest(root,4);
         System.out.println(result);
-
+        result = findKthSmallestBST(root,4);
+        System.out.println(result);
     }
 
     public static int findKthSmallest(BSTreeNode root, int K){
         int[] result = new int[2];
         inorder(root,result,K);
         return result[1];
+    }
+
+    private static int findKthSmallestBST(BSTreeNode root, int k){
+        helper(root,k);
+        return ans;
     }
 
     private static void inorder(BSTreeNode root, int[] result, int K){
@@ -47,6 +54,16 @@ public class KthSmallestBSTProblem {
         inorder(root.right,result,K);
     }
 
+    private static void helper(BSTreeNode node, int k){
+        if(node == null) return;
+        helper(node.left,k);
+        count++;
+        if(count==k){
+            ans=node.value;
+            return;
+        }
+        helper(node.right,k);
+    }
 
 }
 
