@@ -74,8 +74,47 @@ public class FruitBasketProblem {
         return max;
     }
 
+    /**
+     * 🎯 Intuition
+     *
+     * You want the longest contiguous subarray that contains at most two distinct integers.
+     *
+     * 👉 This is a sliding window problem:
+     *
+     * Expand the window (move right pointer)
+     *
+     * Track how many distinct fruits are inside
+     *
+     * Shrink window (move left) when more than 2 fruit types exist
+     *
+     * Track the maximum window size seen
+     🧮 Complexity
+     Operation	Complexity
+     Time	O(N) — each element visited at most twice (right++, left++)
+     Space	O(1) — max 2 types in the map
+     */
+    private static int totalFruits(int[] trees){
+        Map<Integer,Integer> basket = new HashMap<>();
+        int n=trees.length;
+        int left=0, maxFruits=0;
+        for(int right=0;right<n;right++){
+            int fruit = trees[right];
+            basket.put(fruit,basket.getOrDefault(fruit,0)+1);
+            while(basket.size()>2){
+                basket.put(trees[left],basket.get(trees[left])-1);
+                if(basket.get(trees[left])==0){
+                    basket.remove(trees[left]);
+                }
+                left++;
+            }
+            maxFruits = Math.max(maxFruits,right-left+1);
+        }
+        return maxFruits;
+    }
+
     public static void main(String[] args) {
         System.out.println(findMaxFruitOptimized(new int[]{1,2,1}));
         System.out.println(findMaxFruitUsingMap(new int[]{1,2,3}));
+        System.out.println(totalFruits(new int[]{1,2,3}));
     }
 }
