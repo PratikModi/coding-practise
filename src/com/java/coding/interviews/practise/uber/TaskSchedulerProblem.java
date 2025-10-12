@@ -103,10 +103,22 @@ public class TaskSchedulerProblem {
         Arrays.sort(freq);
         // [A,A,A] n=2
         //A _ _ A _ _ A -- 2 chunks between most frequent task
-        int chunks = freq[25-1];
+        // the most frequent task count
+        int chunks = freq[25]-1;
         // idle time is chunk * cooldown period
+        	//•	Each of the 2 chunks has space for n idle or other tasks.
+             //   So here: idle = 2 * 2 = 4 idle slots initially.
         int idle = chunks * n;
+        //Now we’ll try to fill these idle slots with other tasks.
 
+        //Step 5: Fill idle slots with other tasks
+        //We loop through all other tasks (excluding the most frequent one).
+	    //•	For each other task (say B=3), we can place at most one instance per chunk
+        //→ you can only fill chunks positions.
+
+        //So we subtract the smaller of:
+	    //•	chunks (max we can fit in gaps)
+	    //•	freq[i] (actual number of that task)
         for(int i=24;i>=0;i--){
             //We can place other tasks in between chunks
             idle -= Math.min(chunks,freq[i]);
