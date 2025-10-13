@@ -69,9 +69,11 @@ class Node{
     Node left;
     Node right;
     int data;
+    Node next;
     Node(int data){
         this.data=data;
         left=null;
         right=null;
+        next=null;
     }
 }
