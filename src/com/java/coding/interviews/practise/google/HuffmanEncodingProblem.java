@@ -23,6 +23,14 @@ import java.util.PriorityQueue;
  * 	3.	Generate binary codes for each character by traversing the tree:
  * 	•	Left → append '0'
  * 	•	Right → append '1'
+ *
+ * 	Step     Complexity
+ * Build frequency map   O(N)
+ * Build heap  O(U log U)  (U = unique chars)
+ * Generate codes  O(U)
+ * Encode string O(N)
+ *
+ * ➡️ Overall: O(N log U) (usually small since U ≤ 26 for letters)
  */
 public class HuffmanEncodingProblem {
 
