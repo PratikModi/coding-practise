@@ -1,6 +1,8 @@
 package com.java.coding.interviews.practise.uber;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Walls and Gates
@@ -39,6 +41,13 @@ public class WallsAndGateProblem {
                                     };
         wallsAndGates(rooms);
         Arrays.stream(rooms).forEach(e-> System.out.println(Arrays.toString(e)));
+        rooms = new int[][] {
+                {Integer.MAX_VALUE,-1,0,Integer.MAX_VALUE},
+                {Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MAX_VALUE,-1},
+                {Integer.MAX_VALUE,-1,Integer.MAX_VALUE,-1},
+                {0,-1,Integer.MAX_VALUE,Integer.MAX_VALUE}};
+        wallsAndGatesBFS(rooms);
+        Arrays.stream(rooms).forEach(e-> System.out.println(Arrays.toString(e)));
     }
 
     private static void wallsAndGates(int[][] rooms){
@@ -61,5 +70,32 @@ public class WallsAndGateProblem {
         dfs(rooms,i+1,j,count+1);
         dfs(rooms,i,j-1,count+1);
         dfs(rooms,i,j+1,count+1);
+    }
+
+    private static void wallsAndGatesBFS(int[][] rooms){
+        if(rooms==null || rooms.length==0) return;
+        int m = rooms.length;
+        int n = rooms[0].length;
+        int[][] directions = {{1,0},{-1,0},{0,1},{0,-1}};
+        Queue<int[]> queue = new LinkedList<>();
+        for(int i=0;i<m;i++){
+            for(int j =0;i<n;i++){
+                if(rooms[i][j]==0){
+                    queue.offer(new int[]{i,j});
+                }
+            }
+        }
+
+        while(!queue.isEmpty()){
+            int[] current = queue.poll();
+            for(int[] dir : directions){
+                int r = current[0]+dir[0];
+                int c = current[1]+dir[1];
+                if(r<0 || r>=m || c<0 || c>=n || rooms[r][c]!=Integer.MAX_VALUE) continue;
+                rooms[r][c]=rooms[current[0]][current[1]]+1;
+                queue.offer(new  int[]{r,c});
+            }
+        }
+
     }
 }
