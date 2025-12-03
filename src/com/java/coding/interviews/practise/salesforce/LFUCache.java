@@ -131,18 +131,19 @@ public class LFUCache {
             Node node = nodeMap.get(key);
             node.value=value;
             updateFreq(node);
+            return;
         }
         // Need to evict
         if(nodeMap.size()>=capacity){
             DoublyLinkedList dlList = freqMap.get(minFreq);
             Node evicted = dlList.removeLast();
-            nodeMap.remove(evicted);
+            nodeMap.remove(evicted.key);
         }
         // Add new node
         Node newNode = new Node(key,value);
         nodeMap.put(key,newNode);
         minFreq=1;//Reset
-        DoublyLinkedList dlList = freqMap.getOrDefault(key,new DoublyLinkedList());
+        DoublyLinkedList dlList = freqMap.getOrDefault(1,new DoublyLinkedList());
         dlList.add(newNode);
         freqMap.put(1,dlList);
     }
