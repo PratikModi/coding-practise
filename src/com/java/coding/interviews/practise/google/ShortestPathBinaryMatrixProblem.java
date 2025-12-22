@@ -74,6 +74,5 @@ public class ShortestPathBinaryMatrixProblem {
             }
         }
         return -1;
-
     }
 }
